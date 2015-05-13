@@ -15,7 +15,7 @@ public class PlayersInfoDAO {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	
-	//遍历吃运动员的名字
+	//遍历出运动员的名字
 	public List<String> findPlayerNames () {
 		List<String> playerNames = null;
 		connection = DBManager.getconConnection();

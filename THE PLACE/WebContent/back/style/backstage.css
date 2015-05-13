@@ -122,8 +122,9 @@ a:hover {
 	zoom: 1;
 }
 .mList h3 {
-	font: 14px/2 "";
+	font: 18px/2 "";
 	padding-left: 1em;
+	font-weight: 300;
 }
 .mList h3 span {
 	display: inline-block;
@@ -132,6 +133,7 @@ a:hover {
 }
 .mList dl {
 	text-indent: 3em;
+	display: none;
 }
 .mList a {
 	color: #FFF;
@@ -220,6 +222,8 @@ a:hover {
 .table td {
 	border: solid 1px #ccc;
 	padding: 8px;
+	height: 10px;
+	overflow: hidden;
 }
 .label,
 .check {

@@ -1,39 +1,33 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import bean.UserInfo;
-import biz.UserInfoBiz;
+import bean.RecordsInfo;
+import biz.RecordsInfoBiz;
 
 @WebServlet("/addRecordsServlet")
 public class addRecordsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	UserInfoBiz userInfoBiz = new UserInfoBiz();
-	UserInfo user = new UserInfo();
-
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-
-		user.setUser_name(request.getParameter("user_name"));
-		user.setUser_email(request.getParameter("user_email"));
-		user.setUser_password(request.getParameter("user_password"));
-		user.setUser_pro(request.getParameter("user_pro"));
-		user.setUser_sex(request.getParameter("user_sex"));
-		user.setUser_age(Integer.parseInt(request.getParameter("user_age")));
+	RecordsInfo recordsInfo = new RecordsInfo();
+	RecordsInfoBiz recordsInfoBiz = new RecordsInfoBiz();
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out = response.getWriter();
+		request.setCharacterEncoding("utf-8");
+		recordsInfo.setRecord_date(request.getParameter("record_date"));
+		recordsInfo.setRecord(new String(request.getParameter("record").getBytes("ISO-8859-1"), "utf-8"));
+		recordsInfo.setRecord_url(request.getParameter("record_url"));
 		
-		userInfoBiz.signUp(user);
+		recordsInfoBiz.addRecords(recordsInfo);
 		
-		session.setAttribute("USER", user);
-		
-		response.sendRedirect("Signup.jsp");
+		response.sendRedirect("back/RecordsManagement.jsp");
 	}
 
 }

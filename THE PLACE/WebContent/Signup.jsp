@@ -140,7 +140,7 @@
 							<font color=yellow, size=6>Creat your the PLACE Account.</font>
 						</div>
 						<div class="sign-up">
-							<form class="createaccount-form " id="creataccount" action="addRecordsServlet" method="post">
+							<form class="createaccount-form " id="creataccount" action="./addUsersServlet" method="post">
 								<!--字段：用户名，密码，年龄，性别，邮箱，简介  -->
 								<br>
 								<div class="form-group ">

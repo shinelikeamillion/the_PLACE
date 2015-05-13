@@ -61,9 +61,6 @@ body {
 	display: table;
 	margin: 0 auto;
 	background: #fff;
-	-moz-box-shadow: 0 5px 20px #CCCCCC;
-	-webkit-box-shadow: 0 5px 20px #CCCCCC;
-	box-shadow: 0 5px 20px #CCCCCC;
 }
 .box {
 	width: 940px;
@@ -86,7 +83,7 @@ body {
 	cursor: pointer;
 }
 .event_year li.current {
-	width: 61px;
+	width: 70px;
 	background: #0066ff url('../../images/jian.png') 60px 0 no-repeat;
 	color: #FFF;
 	text-align: left;
