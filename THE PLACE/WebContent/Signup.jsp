@@ -1,17 +1,16 @@
+<%@ page language="java" import="java.util.*,java.io.*"
+	pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<% %>
 <html>
-
 	<head>
 		<link href="dist/css/material.min.css" rel="stylesheet" type="text/css">
 		<script src="dist/js/jquery-2.1.3.min.js"></script>
 		<script>
 			$(document).ready(function() {
-				//var $i = "1";
-				//falert($("i"));
-				<!-- 把第一行设为焦点 -->
+/* 把第一行设为焦点  */
 				$("#user_name").focus();
-				<!-- 判断当前input在离开时是否有值 内容不能为空-->
+/* 判断当前input在离开时是否有值内容不能为空 */
 				$("input").blur(function() {
 					if ($.trim($(this).val()).length == 0) {
 						$(this).addClass("empty");
@@ -35,13 +34,9 @@
 				width: 100%;
 				height: 100%;
 				margin: 0px;
-				font-family: 'Open Sans', arial;
-			}
-			body {
-				-webkit-transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-				-webkit-transform-style: preserve-3d;
-				background-color: rgb(241, 241, 241);
 				min-width: 800px;
+				text-align: center;
+				font-family: 'Open Sans', arial;
 			}
 			.header-bar {
 				margin-top: 0;
@@ -92,6 +87,7 @@
 				margin-top: -50px;
 			}
 			.form-img {
+				margin-top: -160px;
 				margin-left: 25%;
 				width: 50%;
 				height: 680px;
@@ -101,8 +97,9 @@
 				z-index: -999;
 			}
 			.sign-up {
+				padding: 20px;
 				border-radius: 5px;
-				margin-top: 130px;
+				margin: 130px auto auto;
 				width: 400px;
 				color: black;
 				height: 100%;
@@ -121,7 +118,10 @@
 				float: left;
 				width: 150px;
 			}
-			#user_sex {}
+			.btn {
+				margin:0  40px;
+			}
+				
 		</style>
 	</head>
 
@@ -129,16 +129,12 @@
 		<div>
 			<div class="header-bar">
 				<img class="logo" src="images/logo.png" alt="the PLACE"> <span class="signin-btn"> <a id="link-signin"
-				class="g-button g-button-submit" href="">Sign in</a>
+				class="g-button g-button-submit" href="Signin.jsp">Sign in</a>
 			</span>
 			</div>
 			<div class="middle">
-				<center>
 					<div class="form-img"></div>
 					<div class="signuppage">
-						<div>
-							<font color=yellow, size=6>Creat your the PLACE Account.</font>
-						</div>
 						<div class="sign-up">
 							<form class="createaccount-form " id="creataccount" action="./addUsersServlet" method="post">
 								<!--字段：用户名，密码，年龄，性别，邮箱，简介  -->
@@ -188,12 +184,11 @@
 									<input type="radio" id="user_sex" name="user_sex" value="female" />female
 									<input type="radio" id="user_sex" name="user_sex" value="secret" checked />secret
 								</div>
-								<input type="reset" class="btn btn-primary " value="Cancel" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="reset" class="btn btn-primary " value="Cancel" /> 
 								<input type="submit" class="btn btn-primary" value="Signup" />
 							</form>
 						</div>
 					</div>
-				</center>
 			</div>
 			<div class="footer-bar"></div>
 		</div>

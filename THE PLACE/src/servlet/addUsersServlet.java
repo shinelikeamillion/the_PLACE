@@ -1,13 +1,13 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import bean.UserInfo;
 import biz.UserInfoBiz;
@@ -20,8 +20,9 @@ public class addUsersServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		
 		user.setUser_name(request.getParameter("user_name"));
 		user.setUser_email(request.getParameter("user_email"));
 		user.setUser_password(request.getParameter("user_password"));
@@ -31,9 +32,14 @@ public class addUsersServlet extends HttpServlet {
 		
 		userInfoBiz.signUp(user);
 		
-		session.setAttribute("USER", user);
+		request.getSession().setAttribute("USERINFO", user);
 		
-		response.sendRedirect("Signup.jsp");
+		response.sendRedirect("Signin.jsp");
+		
+/*验证是否乱码*/		
+//		PrintWriter out = response.getWriter();
+//		out.write(request.getParameter("user_name"));
+//		System.out.println(request.getParameter("user_name"));
 	}
 
 }

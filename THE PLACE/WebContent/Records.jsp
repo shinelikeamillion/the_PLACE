@@ -78,11 +78,11 @@ a {
 				<a class="nav-item" id="stars" href="Stars.html">Stars</a> <a
 					class="nav-item" id="records" href="Records.html"
 					style="color: #ffffff;">Records</a>
+					<a class="nav-item" id="blog" href="index.jsp">Blog</a>
 			</nav>
 		</div>
 		<div class="box">
 			<ul class="event_year">
-				<li class="current"><label for="2013">2013</label></li>
 				<c:forEach var="years" items="${ YEARS }">
 					<li><label for="${ years }"> <c:out value="${ years }" />
 					</label></li>
@@ -111,15 +111,13 @@ a {
 				</c:forEach>
 
 			</ul>
-
-			<div class="clearfix"></div>
-
 		</div>
 
 	</div>
 	<script src="dist/js/jquery-2.1.3.min.js" type="text/javascript"></script>
 	<script>
 		$(function() {
+			$(".event_year li:first").addClass('current');
 			$('label').click(
 					function() {
 						$('.event_year>li').removeClass('current');

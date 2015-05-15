@@ -11,6 +11,29 @@ public class UserInfo {
 	private String user_pro;
 	private String reg_time;
 	private UserInfo user;
+	private int user_postNum;
+	private int user_follwingNum;
+	private int user_follwedNUm;
+	
+	
+	public int getUser_postNum() {
+		return user_postNum;
+	}
+	public void setUser_postNum(int user_postNum) {
+		this.user_postNum = user_postNum;
+	}
+	public int getUser_follwingNum() {
+		return user_follwingNum;
+	}
+	public void setUser_follwingNum(int user_follwingNum) {
+		this.user_follwingNum = user_follwingNum;
+	}
+	public int getUser_follwedNUm() {
+		return user_follwedNUm;
+	}
+	public void setUser_follwedNUm(int user_follwerNUm) {
+		this.user_follwedNUm = user_follwerNUm;
+	}
 	public Integer getUser_id() {
 		return user_id;
 	}

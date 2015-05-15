@@ -19,8 +19,9 @@ public class addRecordsServlet extends HttpServlet {
 	RecordsInfoBiz recordsInfoBiz = new RecordsInfoBiz();
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintWriter out = response.getWriter();
 		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8"); 
+		
 		recordsInfo.setRecord_date(request.getParameter("record_date"));
 		recordsInfo.setRecord(new String(request.getParameter("record").getBytes("ISO-8859-1"), "utf-8"));
 		recordsInfo.setRecord_url(request.getParameter("record_url"));
@@ -28,6 +29,11 @@ public class addRecordsServlet extends HttpServlet {
 		recordsInfoBiz.addRecords(recordsInfo);
 		
 		response.sendRedirect("back/RecordsManagement.jsp");
+		
+/*验证是否乱码*/		
+//		PrintWriter out = response.getWriter();
+//		out.write(request.getParameter("record"));
+//		System.out.println(request.getParameter("record"));
 	}
 
 }

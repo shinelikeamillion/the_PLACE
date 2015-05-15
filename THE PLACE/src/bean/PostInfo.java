@@ -13,6 +13,14 @@ public class PostInfo {
 	private Integer post_shared;
 	private Integer post_comment;
 	private Integer post_type;
+	private UserInfo ownerInfo;
+	
+	public UserInfo getOwnerInfo() {
+		return ownerInfo;
+	}
+	public void setOwnerInfo(UserInfo userInfo) {
+		this.ownerInfo = userInfo;
+	}
 	public Integer getPost_id() {
 		return post_id;
 	}

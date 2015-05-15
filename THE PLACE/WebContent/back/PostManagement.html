@@ -287,7 +287,7 @@
 						<li>
 							<h3><span>+</span>用户</h3>
 							<dl>
-								<dd><a href="AccountManagement.html">管理用户</a>
+								<dd><a href="AccountManagement.jsp">管理用户</a>
 								</dd>
 								<dd><a href="PostManagement.html">管理推文</a>
 								</dd>
@@ -297,10 +297,10 @@
 							<h3><span>+</span>内容</h3>
 							<dl>
 								<dd>
-									<a href="RecordsManagement.html">管理Records</a>
+									<a href="RecordsManagement.jsp">管理Records</a>
 								</dd>
 								<dd>
-									<a href="StarsCardManagement.html">管理Stars</a>
+									<a href="/FindRecordsServlet">管理Stars</a>
 								</dd>
 								<dd>
 									<a href="#">备用...</a>
@@ -327,7 +327,7 @@
 			
 			//菜单想的展开和收起
 			$("li > h3").click(function() {
-				$(this).siblings().toggle();
+				$(this).siblings().toggle(600);
 			});
 		});
 	</script>

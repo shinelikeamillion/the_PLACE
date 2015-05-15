@@ -1,48 +1,27 @@
-﻿<!DOCTYPE html>
+﻿<%@ page language="java" import="java.util.*,java.io.*"
+	pageEncoding="utf-8"%>
+<%@ page import="bean.*, biz.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
-
+<%
+	int id;
+	if (session.getAttribute("USERINFO") == null) {
+		response.sendRedirect("Signin.jsp?error=2");
+	} else {
+		PostInfoBiz postInfoBiz = new PostInfoBiz();
+		id = ((UserInfo)session.getAttribute("USERINFO")).getUser_id();
+		List<PostInfo> friendsPostList = new ArrayList<PostInfo>();
+		friendsPostList = postInfoBiz.findFriendsPostsById(id);
+		
+		pageContext.setAttribute("FRIENDS_POSTS_LIST", friendsPostList);
+	}
+%>
 	<head>
 		<title>explore</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<link href="dist/css/material.min.css" rel="stylesheet" type="text/css">
-		<script src="dist/js/jquery-2.1.3.min.js"></script>
-		<script>
-			$(document).ready(function() {
-				//点击其他地方弹窗消失（尚未实现）
-				$(".container, .logo-search-bar").click(function(){
-					$(".bubble").hide();
-				});
-				//对post-bubble按钮的操作
-				$("#post-btn").click(function() {
-					$(".face-bubble").hide();
-					$(".post-bubble").toggle(500);
-				});
-				$(".post-bubble>a").mouseover(function() {
-					$(this).animate({
-						padding: '10px 20px 20px 20px'
-					}, 300);
-					$(this).animate({
-						padding: '20px 20px 20px 20px'
-					}, 300);
-				});
-				//对face-bubble的操作
-				$("#face-btn").click(function() {
-					$(".post-bubble").hide();
-					if ($(".face-bubble").is(":hidden")) {
-						$(".face-bubble").fadeIn();
-					} else {
-						$(".face-bubble").fadeOut();
-					}
-				});
-				//对搜索框的操作
-				$("input").focus(function() {
-					$(this).css("border-color", "#ffffff");
-					$(this).animate({
-						width: "250px"
-					}, 'slow');
-				});
-			});
-		</script>
+
 		<style type="text/css">
 			html,
 			body {
@@ -139,9 +118,10 @@
 				border-radius: 3px;
 			}
 			.user-name {
-				font-size: 1em;
-				font-weight: 900;
+				font-family: "微软雅黑";
+				font-weight: 600;
 				padding: 10px;
+				text-transform: uppercase;
 			}
 			.user-news img {
 				width: 100%;
@@ -152,6 +132,7 @@
 				padding-left: 20px;
 				padding-top: 10px;
 				padding-bottom: 10px;
+				text-align: left;
 			}
 			.notes {
 				color: #424242;
@@ -165,6 +146,7 @@
 				padding-right: 20px 20px 20px 20px;
 				float: right;
 				font-size: 25px;
+				cursor: pointer;
 			}
 			.right-banner {
 				margin-left: 660px;
@@ -244,6 +226,7 @@
 			}
 			.face-icon img {
 				width: 100%;
+				height: 100%;
 			}
 			.change-face {
 				top: 92px;
@@ -254,6 +237,7 @@
 				text-align: center;
 				background-color: rgba(78, 144, 254, .7);
 				position: absolute;
+				cursor: pointer;
 			}
 			.name-email {
 				float: left;
@@ -295,6 +279,7 @@
 				margin-top: 17px;
 				margin-left: 35px;
 				position: absolute;
+				cursor: pointer;
 			}
 			.select{
 				color: #D84315;
@@ -332,23 +317,21 @@
 				</div>
 			</div>
 		</div>
-		<!-- post 页面 -->
+<!-- post按钮弹窗 -->
 		<div class="post-bubble shadow-z-4 bubble">
 			<a class="mdi-action-translate" href="#"></a> <span>Text</span>
 			<a class="mdi-image-color-lens" style="color: #FFA000" href="#"></a> <span>Photo</span>
 			<a class="mdi-av-videocam" style="color: #F44336" href="#"></a> <span>Video</span>
 		</div>
-		<!-- 简洁的用户界面 -->
+<!-- 用户界面弹窗 -->
 		<div class="face-bubble shadow-z-4 bubble">
 			<div class="user-profile">
 				<div class="face-icon">
-					<img src="userfaces/jianeite.png" /> <span class="change-face">Change
-
-					face</span>
+					<img src="${ USERINFO.user_face }" /> <span class="change-face">Change-face</span>
 				</div>
 				<div class="name-email">
-					<span>ShineLikeAMillion</span>
-					<br> <span>940788048@qq.com</span>
+					<span>${ USERINFO.user_name }</span>
+					<br> <span>${ USERINFO.user_email }</span>
 					<br>
 					<a class="profile-link">View profile</a>
 				</div>
@@ -360,20 +343,20 @@
 		<div class="container">
 			<div class="discover-posts">
 				<div class="posts-hoder">
-					<!-- 右边的板块 -->
+<!-- 右边的板块 -->
 					<div class="right-banner">
-						<div>userInfomation</div>
+						<strong>Userinfomation:</strong>
 						<hr>
-						<a class="mdi-action-subject" href="#"> Posts................ <span>12</span><br>
+						<a class="mdi-action-subject" href="#"> Posts<span>${ USERINFO.user_postNum }</span><br>
 
 					</a> <a class="mdi-social-people-outline" href="#">
 
-						Followers......... <span></span>
+						Followers<span>${ USERINFO.user_follwedNUm }</span>
 
 					</a>
 						<br> <a class="mdi-content-gesture" href="#">
 
-						Activity....... <span></span>
+						Activity<span></span>
 
 					</a>
 						<br>
@@ -384,7 +367,7 @@
 						Liked <span></span>
 
 					</a>
-						<br> <a class="mdi-social-people" href="#"> Following <span></span>
+						<br> <a class="mdi-social-people" href="#"> Following <span>${ USERINFO.user_follwingNum }</span>
 
 					</a>
 						<br> <a class="mdi-social-person-add" href="#"> Find
@@ -394,53 +377,105 @@
 					</a>
 						<br>
 						<hr> RADAR
-						<br> <a class="mdi-social-whatshot" href="#"> Gusst
+						<br> <div class="mdi-social-whatshot"> Gusst you like
 
-						you like <span></span>
-
-					</a>
+					</div>
 						<br>
 
 					</div>
-					<!-- 左边的post页面 -->
+<!-- 左边的post页面 -->
 					<div class="user-post">
 						<div class="user-face ">
 							<img src="userfaces/jianeite.png" />
 						</div>
 						<div class="user-news">
-							<div class="user-name">shinelikeamillion</div>
+							<div class="user-name">${ USERINFO.user_name }</div>
 							<div class="post-content">
 								<img src="news/drunk.png" />
 							</div>
 							<div class="post-title">first test post</div>
 							<div class="post-footer">
 								<label class="notes">notes</label>
-								<label class="repost" />
-								<label class="mdi-action-favorite" id="like" />
+								<label class="repost" ></label>
+								<label class="mdi-action-favorite" id="like" ></label>
 							</div>
 						</div>
 					</div>
 
-					<div class="user-post">
-						<div class="user-face ">
-							<img src="userfaces/jianeite.png" />
-						</div>
-						<div class="user-news">
-							<div class="user-name">shinelikeamillion</div>
-							<div class="post-content">
-								<img src="news/drunk.png" />
+					<c:forEach var="friendsPosts" items="${ FRIENDS_POSTS_LIST }">
+						<div class="user-post">
+							<div class="user-face ">
+								<img src="${ friendsPosts.ownerInfo.user_face }" />
 							</div>
-							<div class="post-title">first test post</div>
-							<div class="post-footer">
-								<label class="notes">notes</label>
-								<label class="repost" />
-								<label class="mdi-action-favorite" id="like" />
+							<div class="user-news">
+								<div class="user-name">${ friendsPosts.ownerInfo.user_name }</div>
+								<div class="post-content">
+									<img src="${ friendsPosts.post_pics }" />
+									<div id="post-content"></div>
+									<div id="post-video"></div>
+								</div>
+								<div class="post-title">${ friendsPosts.post_title } { ${ friendsPosts.post_tags }}</div>
+								<div class="post-footer">
+									<label class="notes">notes</label>
+									<label class="repost" ></label>
+									<label class="mdi-action-favorite" id="like" >${ friendsPosts.post_liked }</label>
+								</div>
 							</div>
-						</div>
-					</div>
+						</div>						
+					</c:forEach>				
+
 				</div>
 			</div>
 		</div>
+		<script src="dist/js/jquery-2.1.3.min.js"></script>
+		<script>
+			$(document).ready(function() {
+
+				//点击其他地方弹窗消失（实现了一半,不信你点导航栏!）
+				$(".container, .logo-search-bar").click(function(){
+					$(".bubble").hide();
+				});
+				//对post-bubble按钮的操作
+				$("#post-btn").click(function() {
+					$(".face-bubble").hide();
+					$(".post-bubble").toggle(500);
+				});
+				$(".post-bubble>a").mouseover(function() {
+					$(this).animate({
+						padding: '10px 20px 20px 20px'
+					}, 300);
+					$(this).animate({
+						padding: '20px 20px 20px 20px'
+					}, 300);
+				});
+				//对face-bubble的操作
+				$("#face-btn").click(function() {
+					$(".post-bubble").hide();
+					if ($(".face-bubble").is(":hidden")) {
+						$(".face-bubble").fadeIn();
+					} else {
+						$(".face-bubble").fadeOut();
+					}
+				});
+				//对搜索框的操作
+				$("input").focus(function() {
+					$(this).css("border-color", "#ffffff");
+					$(this).animate({
+						width: "250px"
+					}, 'slow');
+				});
+				$(".signout-button").click(function() {
+					$.get("./Logout",null,function() {
+						window.location.reload();
+					});
+				});
+				$(".mdi-action-favorite").click(function() {
+					$(this).css("color","#F44336");
+					
+				});
+			});
+		</script>
+		
 	</body>
 
 </html>

@@ -16,7 +16,7 @@
 						if (video[0].currentTime >= video_length) {
 							//alert("播放完成");
 							$("#video-msg").fadeIn(2000);
-							//$("#active-btn").show(1000);
+							$("#active-btn").show(1000);
 						}
 					});
 				});
@@ -45,11 +45,10 @@
 				height: 100%;
 				margin: 0px;
 				font-family: 'Open Sans', arial;
+				position: absolute;
 			}
 			body {
-				/*       overflow: hidden; */
-				
-				min-width: 1366px;
+				/* overflow: hidden; */
 				background-image: none;
 				background-color: rgb(238, 238, 238);
 			}
@@ -128,8 +127,7 @@
 				text-decoration: none;
 			}
 			.btn-arrow {
-				/*       display: hide; */
-				
+				display: none;
 				position: fixed;
 				border-top-left-radius: 50%;
 				border-top-right-radius: 50%;
@@ -175,6 +173,7 @@
 			}
 			.logo-video {
 				top: 0px;
+				width: 100%;
 				display: block;
 				width: 100%;
 				position: absolute;
@@ -192,14 +191,14 @@
 				font-size: 50px;
 				font-weight: bold;
 				padding-top: 10px;
-				padding-left: 50%;
+				padding-left: 40%;
 			}
 			#video-msg h3 {
 				color: rgb(255, 255, 255);
 				font-size: 30px;
 				font-family: arial;
 				font-weight: bold;
-				padding-left: 50%;
+				padding-left: 40%;
 			}
 			.section {
 				height: 620px;
@@ -235,7 +234,7 @@
 			}
 			.dominate {
 				top: 0;
-				text-align: right;
+				text-align: center;
 				font-weight: bold;
 				padding-top: 200px;
 				color: rgb(255, 255, 255);
@@ -296,13 +295,11 @@
 				<div class="logo-bar">
 					<a class="Home" href="#/intro">
 						<img class="logo" src="images/logo.png">
-						<h1>
-						<span class="the">the</span> PLACE
-					</h1>
+						<h1><span class="the">the</span>PLACE</h1>
 					</a>
 				</div>
 				<div class="user-bar">
-					<a class="join-btn" href=""><b>JOIN US NOW</b></a> <a class="login-btn" href="">SIGN IN</a>
+					<a class="join-btn" href="Signup.jsp"><b>JOIN US NOW</b></a> <a class="login-btn" href="Signin.jsp">SIGN IN</a>
 				</div>
 			</header>
 			<div class="btn-arrow" id="active-btn"></div>
@@ -311,7 +308,7 @@
 					<div class="scroller-inner">
 						<section id="intro" class="section active">
 							<div class="head-video">
-								<video muted="" class="logo-video" autoplay="">
+								<video class="logo-video" autoplay>
 									<source src="video/logo-intro.mp4" type="video/mp4">
 								</video>
 							</div>
@@ -343,7 +340,7 @@
 							</h2>
 								<h1>
 								press the button on the top, and join us now
-								<h1>
+								</h1>
 									<div class="footer">d</div>
 						</div>
 					</section>

@@ -2,10 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
-
 <head>
 <meta http-equiv="content-type" content="text/html; charset="utf-8">
-<title>-.-记录管理</title>
+<title>管理记录</title>
 <link rel="stylesheet" href="style/backstage.css">
 <style type="text/css">
 .dialog {
@@ -113,9 +112,9 @@
 	</div>
 	<div class="content clearfix">
 
-		<!--用来做遮盖弹出框的背景-->
+<!--用来做遮盖弹出框的背景-->
 		<div class="overlay"></div>
-		<!--弹出框-->
+<!--弹出框-->
 		<div class="dialog">
 			<div class="dialog-content">
 				<h3>添加记录</h3>
@@ -145,26 +144,6 @@
 						</div>
 						<div class="fr">
 							<div class="text">
-								<span>帖子标题：</span>
-								<div class="bui_select">
-									<select name="" id="" class="select">
-										<option value="1">测试内容</option>
-										<option value="1">测试内容</option>
-										<option value="1">测试内容</option>
-									</select>
-								</div>
-							</div>
-							<div class="text">
-								<span>发表时间：</span>
-								<div class="bui_select">
-									<select name="" id="" class="select">
-										<option value="1">测试内容</option>
-										<option value="1">测试内容</option>
-										<option value="1">测试内容</option>
-									</select>
-								</div>
-							</div>
-							<div class="text">
 								<span>搜索</span> <input type="text" value="" class="search">
 							</div>
 						</div>
@@ -173,7 +152,7 @@
 					<table class="table" cellspacing="0" cellpadding="0">
 						<thead>
 							<tr>
-								<th width="10%">编号</th>
+								<th width="5%">编号</th>
 								<th width="10%">日期</th>
 								<th width="60%">记录</th>
 								<th>操作</th>
@@ -208,7 +187,7 @@
 						</h3>
 						<dl>
 							<dd>
-								<a href="AccountManagement.html">管理用户</a>
+								<a href="AccountManagement.jsp">管理用户</a>
 							</dd>
 							<dd>
 								<a href="PostManagement.html">管理推文</a>
@@ -221,10 +200,10 @@
 						</h3>
 						<dl>
 							<dd>
-								<a href="RecordsManagement.html">管理Records</a>
+								<a href="../FindRecordsServlet">管理记录</a>
 							</dd>
 							<dd>
-								<a href="StarsCardManagement.html">管理Stars</a>
+								<a href="StarsCardManagement.html">管理球星卡</a>
 							</dd>
 							<dd>
 								<a href="#">备用...</a>
@@ -258,7 +237,7 @@
 
 		//菜单想的展开和收起
 		$("li > h3").click(function() {
-			$(this).siblings().toggle();
+			$(this).siblings().toggle(600);
 		});
 	});
 </script>

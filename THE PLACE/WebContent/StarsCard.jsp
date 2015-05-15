@@ -167,7 +167,8 @@ button {
 					class="nav-item" id="culture" href="Knowlage&Culture.html">Knowledge&amp;Culture</a>
 				<a class="nav-item" id="stars" href="Stars.html"
 					style="color: #ffffff;">Stars</a> <a class="nav-item" id="records"
-					href="Records.html">Records</a>
+					href="Records.jsp">Records</a>
+					<a class="nav-item" id="blog" href="index.jsp">Blog</a>
 			</nav>
 		</div>
 

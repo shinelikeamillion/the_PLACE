@@ -12,24 +12,54 @@ public class UserInfoDAO {
 	private Connection connection = null;
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
+	
+	//查询用户信息
+	public UserInfo findUserInfo (int id) {
+		connection = DBManager.getconConnection();
+		String sql = "select * from the_place.users where user_id="+id;
+		UserInfo userInfo = new UserInfo();
 
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				userInfo.setUser_id(resultSet.getInt(1));
+				userInfo.setUser_name(resultSet.getString(2));
+				userInfo.setUser_age(resultSet.getInt(4));
+				userInfo.setUser_sex(resultSet.getString(5));
+				userInfo.setUser_face(resultSet.getString(7));
+				userInfo.setUser_pro(resultSet.getString(8));
+				userInfo.setReg_time(resultSet.getString(9));
+			} 
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			DBManager.close(connection, preparedStatement, resultSet);
+		}
+		return userInfo;
+	}
+	
 	//检查用户登录
 	public UserInfo checkLogin(UserInfo userInfo) {
 		connection = DBManager.getconConnection();
-		String sql = "select * from the_place.users where user_name=? and user_password=?";
+		String sql = "select * from the_place.users where user_email=? and user_password=?";
 		try {
 			preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setString(1, userInfo.getUser_name());
+			preparedStatement.setString(1, userInfo.getUser_email());
 			preparedStatement.setString(2, userInfo.getUser_password());
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				userInfo.setUser_id(resultSet.getInt(1));
+				userInfo.setUser_name(resultSet.getString(2));
 				userInfo.setUser_age(resultSet.getInt(4));
 				userInfo.setUser_sex(resultSet.getString(5));
-				userInfo.setUser_email(resultSet.getString(6));
 				userInfo.setUser_face(resultSet.getString(7));
 				userInfo.setUser_pro(resultSet.getString(8));
 				userInfo.setReg_time(resultSet.getString(9));
+//这个方式关闭时会有冲突--放弃!
+//				userInfo.setUser_postNum(findPostNum(resultSet.getInt(1)));
+//				userInfo.setUser_follwingNum(findFollowing(resultSet.getInt(1)));
+//				userInfo.setUser_follwedNUm(findFollowed(resultSet.getInt(1)));
 			} else {
 				userInfo = null;
 			}
@@ -57,9 +87,66 @@ public class UserInfoDAO {
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
+			return false;
 		} finally {
 			DBManager.close(connection, preparedStatement);
 		}
 		return true;
 	}
+	
+	//查询用户的发帖数
+	public int findPostNum(int id) {
+		int postnum = 0;
+		connection = DBManager.getconConnection();
+		String sql = "select count(*) from the_place.news where owner_id="+id;
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				postnum = resultSet.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			DBManager.close(connection, preparedStatement, resultSet);
+		}
+		return postnum;
+	}
+	//查询用户follow人数
+		public int findFollowing(int id) {
+			int postnum = 0;
+			connection = DBManager.getconConnection();
+			String sql = "SELECT COUNT(*) FROM the_place.relationship WHERE my_id="+id;
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					postnum = resultSet.getInt(1);
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			} finally {
+				DBManager.close(connection, preparedStatement, resultSet);
+			}
+			return postnum;
+		}
+		
+	//查询用户被follow的人数
+		public int findFollowed(int id) {
+			int postnum = 0;
+			connection = DBManager.getconConnection();
+			String sql = "SELECT COUNT(*) FROM the_place.relationship WHERE friend_id="+id;
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					postnum = resultSet.getInt(1);
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			} finally {
+				DBManager.close(connection, preparedStatement, resultSet);
+			}
+			return postnum;
+		}
 }

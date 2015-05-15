@@ -3,13 +3,14 @@
 
 	<head>
 		<meta charset="utf-8">
-		<title>-.-</title>
+		<title>管理球星卡</title>
 		<link rel="stylesheet" href="style/backstage.css">
 		<style type="text/css">
 			.dialog {
 				position: absolute;
-				width: 50%;
-				margin-left: 25%;
+				width: 46%;
+				top: 10px;
+				margin-left: 27%;
 				z-index: 100;
 				visibility: hidden;
 				color: #ffffff;
@@ -22,7 +23,7 @@
 			.dialog-content h3 {
 				padding: 0.4em;
 				text-align: center;
-				font-size: 2.4em;
+				font-size: 2.0em;
 				font-weight: 300;
 				background: rgba(0, 0, 0, 0.1);
 				border-radius: 3px 3px 0 0;
@@ -46,7 +47,7 @@
 				height: 5em;
 			}
 			.dialog-content .button input {
-				width: 250px;
+				width: 220px;
 				font-size: 1em;
 				padding: 0.6em 1.2em;
 				background: #c0392b;
@@ -78,6 +79,25 @@
 				background-color: #e74c3c;
 				color: #ffffff;
 			}
+			#face-img {
+				width: 160px;
+				height: 160px;
+				float: left;
+			}
+			#face {
+				float: left;
+				position: absolute;
+				height: 20px;
+				font-size: 6pt;
+				width: 160px;
+			}
+			#name,
+			#height,
+			#weight {
+				margin-top: 5px;
+				width: 300px;
+				float: right;
+			}
 		</style>
 	</head>
 
@@ -98,56 +118,40 @@
 
 			<!--用来做遮盖弹出框的背景-->
 			<div class="overlay"></div>
-				<!--弹出框-->
-				<div class="dialog">
-					<div class="dialog-content">
-						<h3>添加记录</h3>
-						<div>
-							<form action="" method="get">
-								<input type="date" id="date" name="recore_date" placeholder="Recore-date:">
-								<br/>
-								<textarea rows="3" placeholder="事件："></textarea>
-								<br/>
-								<input type="url" placeholder="网址："></input>
-								<div class="button">
-									<input type="reset" id="close" value="关闭" />
-									<input type="submit" id="submit" value="添加" />
-								</div>
-							</form>
-						</div>
+			<!--弹出框-->
+			<div class="dialog">
+				<div class="dialog-content">
+					<h3>添加球星卡</h3>
+					<div>
+						<form action="" method="get">
+							<img id="face-img" src="../images/default_pic.png" />
+							<input id="face" type="file" onchange="preview(this)" />
+							<input id="name" name="player_name" placeholder="Name:" />
+							<input id="height" name="player_height" placeholder="Height:" />
+							<input id="weight" name="player_weight" placeholder="Weight:" />
+							<input id="email" name="player_eamil" placeholder="Email:" />
+							<input id="team" name="player_team" placeholder="Team:" />
+							<input id="specialty" name="player_specialty" placeholder="Specialty:" />
+							<textarea id="prefession" rows="3" name="player_prefession" placeholder="Prefession:"></textarea>
+							<div class="button">
+								<input type="reset" id="close" value="关闭" />
+								<input type="submit" id="submit" value="添加" />
+							</div>
+						</form>
 					</div>
 				</div>
+			</div>
 
 			<div class="main">
 				<!--右侧内容-->
 				<div class="cont">
-					<div class="title">帖子管理</div>
+					<div class="title">球星卡管理</div>
 					<div class="details">
 						<div class="details_operation clearfix">
 							<div class="bui_select">
 								<input type="button" value="添&nbsp;&nbsp;加" class="add">
 							</div>
 							<div class="fr">
-								<div class="text">
-									<span>帖子标题：</span>
-									<div class="bui_select">
-										<select name="" id="" class="select">
-											<option value="1">测试内容</option>
-											<option value="1">测试内容</option>
-											<option value="1">测试内容</option>
-										</select>
-									</div>
-								</div>
-								<div class="text">
-									<span>发表时间：</span>
-									<div class="bui_select">
-										<select name="" id="" class="select">
-											<option value="1">测试内容</option>
-											<option value="1">测试内容</option>
-											<option value="1">测试内容</option>
-										</select>
-									</div>
-								</div>
 								<div class="text">
 									<span>搜索</span>
 									<input type="text" value="" class="search">
@@ -174,7 +178,7 @@
 									<td>后台设计</td>
 									<td>测试内容</td>
 									<td align="center">
-										<input type="button" value="修改" class="btn">
+										<input type="button" value="修改" class="btn update">
 										<input type="button" value="删除" class="btn">
 									</td>
 								</tr>
@@ -287,7 +291,7 @@
 						<li>
 							<h3><span>+</span>用户</h3>
 							<dl>
-								<dd><a href="AccountManagement.html">管理用户</a>
+								<dd><a href="AccountManagement.jsp">管理用户</a>
 								</dd>
 								<dd><a href="PostManagement.html">管理推文</a>
 								</dd>
@@ -297,10 +301,10 @@
 							<h3><span>+</span>内容</h3>
 							<dl>
 								<dd>
-									<a href="RecordsManagement.html">管理Records</a>
+									<a href="RecordsManagement.jsp">管理记录</a>
 								</dd>
 								<dd>
-									<a href="StarsCardManagement.html">管理Stars</a>
+									<a href="../FindRecordsServlet">管理球星卡</a>
 								</dd>
 								<dd>
 									<a href="#">备用...</a>
@@ -318,17 +322,28 @@
 		$(document).ready(function() {
 			//打开添加的悬浮框
 			$(".add").click(function() {
+				$(".dialog-content > h3").html("添加记录");
+				$("#submit").val("添加");
+				$(".overlay,.dialog").addClass("show");
+			});
+			$(".update").click(function() {
+				$(".dialog-content > h3").html("修改记录");
+				$("#submit").val("修改");
 				$(".overlay,.dialog").addClass("show");
 			});
 			//关闭悬浮框
 			$("#close , .overlay").click(function() {
 				$(".overlay,.dialog").removeClass("show");
 			});
-			
 			//菜单想的展开和收起
 			$("li > h3").click(function() {
-				$(this).siblings().toggle();
+				$(this).siblings().toggle(600);
 			});
+
+			function preview(obj) {
+				var str = obj.value;
+				$("face-img").attr("src","str");
+			}
 		});
 	</script>
 

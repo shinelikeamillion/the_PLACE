@@ -36,21 +36,6 @@ body {
 	word-wrap: break-word;
 	background: #F0F0F0;
 }
-/* new clearfix */
-.clearfix:after {
-	visibility: hidden;
-	display: block;
-	font-size: 0;
-	content: " ";
-	clear: both;
-	height: 0;
-}
-* html .clearfix {
-	zoom: 1;
-} /* IE6 */
-*:first-child+html .clearfix {
-	zoom: 1;
-} /* IE7 */
 .hidden {
 	display: none;
 }
@@ -67,6 +52,7 @@ body {
 	margin: 18px auto 0 auto;
 }
 .event_year {
+	position:fixed;
 	width: 60px;
 	border-bottom: 2px solid #DDD;
 	text-align: center;

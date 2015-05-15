@@ -7,6 +7,7 @@ body {
 	width: 100%;
 	height: 100%;
 	min-width: 1000px;
+	overflow: hidden;
 }
 li {
 	list-style: none;
@@ -91,6 +92,7 @@ a:hover {
 	float: left;
 	margin-left: -100%;
 	height: 100%;
+	min-height: 590px;
 	position: relative;
 	z-index: 2;
 	background-color: #e74c3c;
@@ -233,11 +235,14 @@ a:hover {
 	margin-right: 4px;
 }
 .btn {
+	width: 92px;
+	height: 30px;
+	font-size: 14px;
 	padding: 4px 16px;
 	background-color: #E8E8E8;
 	margin: 0 10px;
 	font-family: "微软雅黑";
-	font-size: 14px;
+	cursor:pointer;
 }
 .btn:hover {
 	background-color: #ccc;
