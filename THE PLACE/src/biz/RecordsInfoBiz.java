@@ -14,7 +14,7 @@ public class RecordsInfoBiz {
 	}
 	
 //	遍历记录
-	public List<RecordsInfo> findRecordList() {
-		return recordsInfoDAO.findRecordList();
+	public List<RecordsInfo> findRecordList(String point) {
+		return recordsInfoDAO.findRecordList(point);
 	}
 }

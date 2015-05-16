@@ -1,5 +1,9 @@
 package biz;
 
+import java.util.List;
+
+import org.eclipse.jdt.internal.compiler.ast.ReturnStatement;
+
 import bean.UserInfo;
 import dao.UserInfoDAO;
 
@@ -28,5 +32,10 @@ public class UserInfoBiz {
 		userInfo.setUser_follwingNum(uidao.findFollowing(id));
 		userInfo.setUser_follwedNUm(uidao.findFollowed(id));
 		return userInfo;
+	}
+	
+	//遍历出所有的用户信息（管理员）有用模糊查询
+	public List<UserInfo> findAllUsersInfo (String point) {
+		return uidao.findAllUserInfo(point);
 	}
 }

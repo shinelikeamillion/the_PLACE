@@ -7,30 +7,36 @@
 
 <%
 	int id;
-	
+	PlayerInfoBiz playerInfoBiz = new PlayerInfoBiz();
+
 	if (session.getAttribute("ADMININFO") == null) {
 		response.sendRedirect("../Signin.jsp?error=2");
 	}
 	if (request.getParameter("point") != null) {
-		RecordsInfoBiz recordsInfoBiz = new RecordsInfoBiz();
 		String point = request.getParameter("point");
+		//下面的方法改为模糊查询,名字就先不换了
+		pageContext.setAttribute("ALLSTARS",
+				playerInfoBiz.findPlayerInfoByPoint(point));
 		pageContext.setAttribute("POINT", point);
-		List<RecordsInfo> recordList = recordsInfoBiz.findRecordList(point);
-		pageContext.setAttribute("ALL_RECORDS_LIST", recordList);
-	} 
+	} else {
+		//全部遍历
+		pageContext.setAttribute("ALLSTARS",
+				playerInfoBiz.findPlayerInfoByPoint(""));
+	}
 %>
 
 <head>
-<meta http-equiv="content-type" content="text/html; charset="utf-8">
-<title>管理记录</title>
+<meta charset="utf-8">
+<title>管理球星卡</title>
 <link rel="stylesheet" href="style/backstage.css">
 <style type="text/css">
 .dialog {
 	position: absolute;
-	width: 50%;
-	margin-left: 25%;
-	visibility: hidden;
+	width: 46%;
+	top: 10px;
+	margin-left: 27%;
 	z-index: 100;
+	visibility: hidden;
 	color: #ffffff;
 }
 
@@ -43,7 +49,7 @@
 .dialog-content h3 {
 	padding: 0.4em;
 	text-align: center;
-	font-size: 2.4em;
+	font-size: 2.0em;
 	font-weight: 300;
 	background: rgba(0, 0, 0, 0.1);
 	border-radius: 3px 3px 0 0;
@@ -70,7 +76,7 @@
 }
 
 .dialog-content .button input {
-	width: 250px;
+	width: 220px;
 	font-size: 1em;
 	padding: 0.6em 1.2em;
 	background: #c0392b;
@@ -106,6 +112,26 @@
 	background-color: #e74c3c;
 	color: #ffffff;
 }
+
+#face-img {
+	width: 160px;
+	height: 160px;
+	float: left;
+}
+
+#face {
+	float: left;
+	position: absolute;
+	height: 20px;
+	font-size: 6pt;
+	width: 160px;
+}
+
+#name, #height, #weight {
+	margin-top: 5px;
+	width: 300px;
+	float: right;
+}
 </style>
 </head>
 
@@ -118,14 +144,14 @@
 	</div>
 	<div class="operation_user clearfix">
 		<div class="link fl">
-			<a href="#">THE PLACE</a><span>&gt;&gt;</span>内容<span>&gt;&gt;</span>管理Records
+			<a href="#">THE PLACE</a><span>&gt;&gt;</span>内容<span>&gt;&gt;</span>管理StarsCard
 		</div>
 		<div class="link fr">
-			<a href="AccountManagement.jsp" class="icon icon_i">首页</a><span></span>
-			<a href="#" class="icon icon_j">前进</a><span></span>
-			<a href="#" class="icon icon_t">后退</a><span></span>
-			<a href="RecordsManagement.jsp" class="icon icon_n">刷新</a><span></span>
-			<a href="../Logout" class="icon icon_e">退出</a>
+			<a href="#" class="icon icon_i">首页</a><span></span><a href="#"
+				class="icon icon_j">前进</a><span></span><a href="#"
+				class="icon icon_t">后退</a><span></span><a href="#"
+				class="icon icon_n">刷新</a><span></span><a href="#"
+				class="icon icon_e">退出</a>
 		</div>
 	</div>
 	<div class="content clearfix">
@@ -135,13 +161,19 @@
 		<!--弹出框-->
 		<div class="dialog">
 			<div class="dialog-content">
-				<h3>添加记录</h3>
+				<h3>添加球星卡</h3>
 				<div>
-					<form action="../addRecordsServlet" method="get">
-						<input type="date" id="date" name="record_date"
-							placeholder="Recore-date:"> <br />
-						<textarea rows="3" id="record" placeholder="事件：" name="record"></textarea>
-						<br /> <input type="url" id="url" placeholder="网址：" name="record_url"></input>
+					<form action="" method="get">
+						<img id="face-img" src="../images/default_pic.png" /> <input
+							id="face" type="file" onchange="preview(this)" /> <input
+							id="name" name="player_name" placeholder="Name:" /> <input
+							id="height" name="player_height" placeholder="Height:" /> <input
+							id="weight" name="player_weight" placeholder="Weight:" /> <input
+							id="email" name="player_country" placeholder="Country:" /> <input
+							id="team" name="player_team" placeholder="Team:" /> <input
+							id="specialty" name="player_specialty" placeholder="Specialty:" />
+						<textarea id="prefession" rows="3" name="player_prefession"
+							placeholder="Prefession:"></textarea>
 						<div class="button">
 							<input type="reset" id="close" value="关闭" /> <input
 								type="submit" id="submit" value="添加" />
@@ -154,7 +186,7 @@
 		<div class="main">
 			<!--右侧内容-->
 			<div class="cont">
-				<div class="title">管理Records</div>
+				<div class="title">球星卡管理</div>
 				<div class="details">
 					<div class="details_operation clearfix">
 						<div class="bui_select">
@@ -162,7 +194,7 @@
 						</div>
 						<div class="fr">
 							<div class="text">
-								<span>搜索</span> <input type="text" value="${ POINT }" class="search">
+								<span>搜索</span> <input type="text" value="" class="search">
 							</div>
 						</div>
 					</div>
@@ -170,26 +202,32 @@
 					<table class="table" cellspacing="0" cellpadding="0">
 						<thead>
 							<tr>
-								<th width="5%">编号</th>
-								<th width="10%">日期</th>
-								<th width="60%">记录</th>
+								<th width="8%">编号</th>
+								<th width="17%">球星</th>
+								<th width="52%">生涯</th>
 								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="records" items="${ ALL_RECORDS_LIST }"
+							<c:forEach var="starInfo" items="${ ALLSTARS }"
 								varStatus="status">
-								<tr class="records${ status.index }">
-									<!--这里的id和for里面的c1 需要循环出来-->
-									<td><input type="checkbox" id="div${status.index}"
-										class="check"> <label for="div${status.index}"
+								<tr class="starInfo-row${ status.index }">
+									<td><input type="checkbox" id="${ status.index }"
+										class="check"> <label for="${ status.index }"
 										class="label">${status.count}</label></td>
-									<td>${ records.record_date }</td>
-									<td>${ records.record }</td>
-									<td hidden="true">${ records.record_url }</td>
-									<td align="center"><input type="button" value="修改"
-										class="btn update" id="records${ status.index }"> <input type="button" value="删除"
-										class="btn"></td>
+									<td>${ starInfo.player_name }</td>
+									<td>${ starInfo.player_prefession }</td>
+									<td hidden="true">${ starInfo.player_id }</td>
+									<td hidden="true">${ starInfo.player_face }</td>
+									<td hidden="true">${ starInfo.player_country }</td>
+									<td hidden="true">${ starInfo.player_height }</td>
+									<td hidden="true">${ starInfo.player_weight }</td>
+									<td hidden="true">${ starInfo.player_team }</td>
+									<td hidden="true">${ starInfo.player_specialty }</td>
+									<td hidden="true">${ starInfo.player_prefession }</td>
+									<td align="center"><input type="button" value="查看"
+										class="btn show" id="starInfo-row${ status.index }" /> <input
+										type="button" value="拉黑" class="btn" /></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -221,10 +259,10 @@
 						</h3>
 						<dl>
 							<dd>
-								<a href="../FindRecordsServlet">管理记录</a>
+								<a href="RecordsManagement.jsp">管理记录</a>
 							</dd>
 							<dd>
-								<a href="StarsCardManagement.html">管理球星卡</a>
+								<a href="../FindRecordsServlet">管理球星卡</a>
 							</dd>
 							<dd>
 								<a href="#">备用...</a>
@@ -245,36 +283,25 @@
 			$(".dialog-content > h3").html("添加记录");
 			$("#submit").val("添加");
 			$(".overlay,.dialog").addClass("show");
-			
 		});
 		$(".update").click(function() {
 			$(".dialog-content > h3").html("修改记录");
 			$("#submit").val("修改");
 			$(".overlay,.dialog").addClass("show");
-
-			var date = $("."+$(this).attr("id")+" td:eq(1)").html();
-			var record = $("."+$(this).attr("id")+" td:eq(2)").html();
-			var url = $("."+$(this).attr("id")+" td:eq(3)").html();
-			
-			$("#date").val(date);$("#record").val(record);$("#url").val(url);
 		});
 		//关闭悬浮框
 		$("#close , .overlay").click(function() {
 			$(".overlay,.dialog").removeClass("show");
 		});
-
 		//菜单想的展开和收起
 		$("li > h3").click(function() {
 			$(this).siblings().toggle(600);
 		});
-		
-		//回车进行搜索
-		$("body").keydown(function() {
-            if (event.keyCode == "13") {//keyCode=13是回车键
-            	var point = $(".search").val();
-            	location.href = "RecordsManagement.jsp?point="+point;
-            }
-        });
+
+		function preview(obj) {
+			var str = obj.value;
+			$("face-img").attr("src", "str");
+		}
 	});
 </script>
 

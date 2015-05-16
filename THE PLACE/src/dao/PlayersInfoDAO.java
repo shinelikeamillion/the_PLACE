@@ -40,7 +40,7 @@ public class PlayersInfoDAO {
 	public PlayerInfo findPlayerInfoByName (String name) {
 		PlayerInfo playerInfo = new PlayerInfo();
 		connection = DBManager.getconConnection();
-		String sql = "select * from the_place.players where player_name = '"+name+"'";
+		String sql = "select * from the_place.players where player_name="+name;
 		
 		try {
 			preparedStatement = connection.prepareStatement(sql);
@@ -62,5 +62,40 @@ public class PlayersInfoDAO {
 			DBManager.close(connection, preparedStatement, resultSet);
 		}
 		return playerInfo;
+	}
+	
+	//通过运动员的名字查到所有资料
+	public List<PlayerInfo> findPlayerInfoByPoint (String point) {
+		point = "%"+point+"%";
+		List<PlayerInfo> playerInfoList = new ArrayList<PlayerInfo>();
+		PlayerInfo playerInfo ;
+		connection = DBManager.getconConnection();
+		String sql = "select * from the_place.players where player_name like ? or player_team like ? or player_specialty like ? ";
+		
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, point);
+			preparedStatement.setString(2, point);
+			preparedStatement.setString(3, point);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				playerInfo = new PlayerInfo();
+				playerInfo.setPlayer_id(resultSet.getInt(1));
+				playerInfo.setPlayer_name(resultSet.getString(2));
+				playerInfo.setPlayer_country(resultSet.getString(3));
+				playerInfo.setPlayer_height(resultSet.getDouble(4));
+				playerInfo.setPlayer_weight(resultSet.getDouble(5));
+				playerInfo.setPlayer_team(resultSet.getString(6));
+				playerInfo.setPlayer_specialty(resultSet.getString(7));
+				playerInfo.setPlayer_prefession(resultSet.getString(8));
+				playerInfo.setPlayer_face(resultSet.getString(9));
+				playerInfoList.add(playerInfo);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			DBManager.close(connection, preparedStatement, resultSet);
+		}
+		return playerInfoList;
 	}
 }

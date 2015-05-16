@@ -82,7 +82,7 @@
 			}
 			.user-bar div {
 				font-size: 25px;
-				widht: 50px;
+				width: 50px;
 				height: 30px;
 			}
 			.container {
@@ -284,10 +284,86 @@
 			.select{
 				color: #D84315;
 			}
+/*post弹窗样式*/
+/*弹窗背景*/
+			.overlay {
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				z-index: 5;
+				background: rgba(143, 27, 15, 0.8);
+				-webkit-transition: all 0.3s;
+				-moz-transition: all 0.3s;
+				transition: all 0.3s;
+			}
+			.post-dialog {
+				width: 40%;
+				margin: 0 auto;
+				position: fixed;
+				box-shadow: #000000;
+				color: #a1a1a1;
+				text-align: left;
+				z-index: 99;
+			}
+			.post-dialog img {
+				height: 54px;
+				width: 54px;
+				float: left;
+				border-radius: 4px;
+			}
+			.textForm {
+				width: 70%;
+				background: #ffffff;
+				margin-left: 30px;
+				float: left;
+				padding: 10px;
+				border-radius: 4px;
+				box-shadow: 5px 5px 15px #888888;
+			}
+			.textForm input, textarea{
+				width: 100%;
+				border: none;
+				padding: 5px;
+				margin-top: 2px;
+				border-radius: 2px;
+			}
+			.textForm textarea{
+				color: #a1a1a1; 
+				font-size: 1.4em; 
+				font-weight: 300;
+			}
+			.textForm a{
+				position: absolute;
+			}
+			.textForm .close-btn, .submit-btn {
+				width: 8%;
+				
+			}
+			.back-btn {
+				opacity: 0;
+				cursor: pointer;
+			}
+			.show {
+				opacity: 1;
+				visibility: visible;
+			}
+			.hidden {
+				opacity: 0;
+				visibility: hidden;
+			}
+			
 		</style>
 	</head>
 
 	<body>
+		<div class="overlay hidden"></div>
+<!--
+	作者：940788048@qq.com
+	时间：2015-05-16
+	描述：导航栏
+-->
 		<div class="header-bar">
 			<a href="Knowlage&Culture.html"><img class="logo" src="images/logo.png"/></a>
 			<div class="logo-search-bar">
@@ -317,12 +393,85 @@
 				</div>
 			</div>
 		</div>
-<!-- post按钮弹窗 -->
+<!-- post弹窗按钮 -->
 		<div class="post-bubble shadow-z-4 bubble">
-			<a class="mdi-action-translate" href="#"></a> <span>Text</span>
-			<a class="mdi-image-color-lens" style="color: #FFA000" href="#"></a> <span>Photo</span>
-			<a class="mdi-av-videocam" style="color: #F44336" href="#"></a> <span>Video</span>
+			<label for="postText"><a class="mdi-action-translate" href="#"></a><span>Text</span></label>
+			<label for="postPic"><a class="mdi-image-color-lens" style="color: #FFA000" href="#"></a> <span>Photo</span></label>
+			<label for="postVideo"><a class="mdi-av-videocam" style="color: #F44336" href="#"></a> <span>Video</span></label>
 		</div>
+<!-- post窗口 -->
+<!--
+	作者：940788048@qq.com
+	时间：2015-05-16
+	描述：发文本
+-->
+		<div class="post-dialog hidden" id="postText">
+			<img class="user-face" src="userfaces/default.png"/>
+			<form id="textForm" class="textForm">
+				<label style="padding: 5px;" >userName</label>
+				<input style="font-size: 2em;" placeholder="Title:" />
+				<textarea rows="3" placeholder="Your text here" ></textarea>
+				<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
+				<div class="close-btn" style="float: left;">
+					<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
+					<input type="reset" class="back-btn" value=""/>
+				</div>
+				<div class="submit-btn" style="float: right;">
+					<a class="mdi-content-send" style="font-size: 1.6em; color: #0066FF;"></a>
+					<input type="submit" class="back-btn" value="" />
+				</div>
+			</form>
+		</div>
+		
+<!--
+	作者：940788048@qq.com
+	时间：2015-05-16
+	描述：发送图片
+-->
+		<div class="post-dialog hidden"id="postPic" >
+			<img class="user-face" src="userfaces/default.png"/>
+			<form id="picForm" class="textForm">
+				<label style="padding: 5px;" >userName</label>
+				<input style="font-size: 2em;" placeholder="Title:" />
+				<input type="file" value="your pics"/>
+				<textarea rows="3" placeholder="Your text here" ></textarea>
+				<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
+				<div class="close-btn" style="float: left;">
+					<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
+					<input type="reset" class="back-btn" value=""/>
+				</div>
+				<div class="submit-btn" style="float: right;">
+					<a class="mdi-content-send" style="font-size: 1.6em; color: #0066FF;"></a>
+					<input type="submit" class="back-btn" value="" />
+				</div>
+			</form>
+		</div>
+
+<!--
+	作者：940788048@qq.com
+	时间：2015-05-16
+	描述：
+-->
+		<div class="post-dialog hidden" id="postVideo">
+			<img class="user-face" src="userfaces/default.png"/>
+			<form id="videoForm" class="textForm">
+				<label style="padding: 5px;" >userName</label>
+				<input style="font-size: 2em;" placeholder="Title:" />
+				<input placeholder="videoWebPath:" />
+				<textarea rows="3" placeholder="Your text here" ></textarea>
+				<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
+				<div class="close-btn" style="float: left;">
+					<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
+					<input type="reset" class="back-btn" value=""/>
+				</div>
+				<div class="submit-btn" style="float: right;">
+					<a class="mdi-content-send" style="font-size: 1.6em; color: #0066FF;"></a>
+					<input type="submit" class="back-btn" value="" />
+				</div>
+			</form>
+		</div>
+
+
 <!-- 用户界面弹窗 -->
 		<div class="face-bubble shadow-z-4 bubble">
 			<div class="user-profile">
@@ -440,7 +589,7 @@
 					$(".face-bubble").hide();
 					$(".post-bubble").toggle(500);
 				});
-				$(".post-bubble>a").mouseover(function() {
+				$("label > a").mouseover(function() {
 					$(this).animate({
 						padding: '10px 20px 20px 20px'
 					}, 300);
@@ -473,6 +622,19 @@
 					$(this).css("color","#F44336");
 					
 				});
+/* //				打开post窗口
+				$('label').click(function() {
+					var dialog = $(this).attr('for');
+					$(".post-bubble").hide();
+					$(".overlay").removeClass("hidden");
+					if (dialog == "postText") {
+						$(".postText").removeClass("hidden");
+					}
+				});
+//				关闭post窗口
+				$(".close-btn , .overlay").click(function() {
+					
+				}); */
 			});
 		</script>
 		

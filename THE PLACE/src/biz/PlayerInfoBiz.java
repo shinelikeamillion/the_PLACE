@@ -15,5 +15,9 @@ public class PlayerInfoBiz {
 	public PlayerInfo findPlayerInfoByName (String name) {
 		return playersInfoDAO.findPlayerInfoByName(name);
 	}
+	
+	public List<PlayerInfo> findPlayerInfoByPoint (String point) {
+		return playersInfoDAO.findPlayerInfoByPoint(point);
+	}
 }
 

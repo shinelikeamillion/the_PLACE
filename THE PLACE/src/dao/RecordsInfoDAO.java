@@ -33,12 +33,15 @@ public class RecordsInfoDAO {
 	}
 	
 //	遍历记录
-	public List<RecordsInfo> findRecordList () {
+	public List<RecordsInfo> findRecordList (String point) {
+		point = "%"+point+"%";
 		connection = DBManager.getconConnection();
-		String sql = "select * from the_place.records order by record_date desc";
+		String sql = "select * from the_place.records where record_date like ? or record like ? order by record_date desc";
 		List<RecordsInfo> recordsInfoList = new ArrayList<RecordsInfo>();
 		try {
 			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, point);
+			preparedStatement.setString(2, point);
 			resultSet = preparedStatement.executeQuery();
 			RecordsInfo recordsInfo;
 			while (resultSet.next()) {

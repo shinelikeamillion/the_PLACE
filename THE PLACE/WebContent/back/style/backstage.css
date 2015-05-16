@@ -216,6 +216,7 @@ a:hover {
 	border-collapse: collapse;
 	width: 100%;
 	font-size: 14px;
+	table-layout:fixed;
 }
 .table th {
 	background-color: #E8E8E8;
@@ -225,7 +226,9 @@ a:hover {
 	border: solid 1px #ccc;
 	padding: 8px;
 	height: 10px;
-	overflow: hidden;
+    white-space:nowrap;/* 不换行 */  
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */  
+    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/  
 }
 .label,
 .check {

@@ -197,6 +197,12 @@
 					$("#SignInForm").submit();
 				}
 			});
+			//回车键提交表单
+			$("body").keydown(function() {
+	             if (event.keyCode == "13") {//keyCode=13是回车键
+	            	 $("#SignInForm").submit();
+	             }
+	         });
 		});
 				
 	</script>

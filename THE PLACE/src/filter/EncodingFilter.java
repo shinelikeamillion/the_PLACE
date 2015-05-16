@@ -27,7 +27,6 @@ public class EncodingFilter implements Filter {
 		}
 		chain.doFilter(request, response);
 
-		System.out.println("come in");
 	}
 
 	public void init(FilterConfig config) throws ServletException {

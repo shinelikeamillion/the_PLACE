@@ -19,7 +19,8 @@ public class FindRecordsServlet extends HttpServlet {
 	private RecordsInfoBiz recordsInfoBiz = new RecordsInfoBiz();
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<RecordsInfo> recordList = recordsInfoBiz.findRecordList();
+		
+		List<RecordsInfo> recordList = recordsInfoBiz.findRecordList("");
 		
 		request.getSession().setAttribute("ALL_RECORDS_LIST", recordList);
 		
