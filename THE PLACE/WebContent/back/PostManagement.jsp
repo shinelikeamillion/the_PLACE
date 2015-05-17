@@ -93,9 +93,15 @@
 			<h3 class="head_text fr">THE PLACE 后台管理系统</h3>
 		</div>
 		<div class="operation_user clearfix">
-			<div class="link fl"><a href="#">THE PLACE</a><span>&gt;&gt;</span>用户<span>&gt;&gt;</span>管理推文</div>
+			<div class="link fl">
+				<a href="#">THE PLACE</a><span>&gt;&gt;</span>用户<span>&gt;&gt;</span>管理推文
+			</div>
 			<div class="link fr">
-				<a href="#" class="icon icon_i">首页</a><span></span><a href="#" class="icon icon_j">前进</a><span></span><a href="#" class="icon icon_t">后退</a><span></span><a href="#" class="icon icon_n">刷新</a><span></span><a href="#" class="icon icon_e">退出</a>
+				<a href="AccountManagement.jsp" class="icon icon_i">首页</a><span></span>
+				<a href="#" class="icon icon_j">前进</a><span></span>
+				<a href="#" class="icon icon_t">后退</a><span></span>
+				<a href="PostManagement.jsp" class="icon icon_n">刷新</a><span></span>
+				<a href="../Logout" class="icon icon_e">退出</a>
 			</div>
 		</div>
 		<div class="content clearfix">
@@ -125,7 +131,7 @@
 			<div class="main">
 				<!--右侧内容-->
 				<div class="cont">
-					<div class="title">帖子管理</div>
+					<div class="title">管理推文</div>
 					<div class="details">
 						<div class="details_operation clearfix">
 							<div class="bui_select">
@@ -289,28 +295,19 @@
 					<div class="title">管理员</div>
 					<ul class="mList">
 						<li>
-							<h3><span>+</span>用户</h3>
-							<dl>
-								<dd><a href="AccountManagement.jsp">管理用户</a>
-								</dd>
-								<dd><a href="PostManagement.html">管理推文</a>
-								</dd>
-							</dl>
-						</li>
-						<li>
-							<h3><span>+</span>内容</h3>
-							<dl>
-								<dd>
-									<a href="../FindRecordsServlet">管理Records</a>
-								</dd>
-								<dd>
-									<a href="">管理Stars</a>
-								</dd>
-								<dd>
-									<a href="#">备用...</a>
-								</dd>
-							</dl>
-						</li>
+						<h3><span>+</span>用户 </h3>
+						<dl>
+							<dd><a href="AccountManagement.jsp">管理用户</a> </dd>
+							<dd><a href="PostManagement.jsp">管理推文</a></dd>
+						</dl>
+					</li>
+					<li>
+						<h3><span>+</span>内容</h3>
+						<dl><dd><a href="../FindRecordsServlet">管理Records</a></dd>
+							<dd><a href="StarsCardManagement.jsp">管理Stars</a></dd>
+							<dd><a href="#">备用...</a></dd>
+						</dl>
+					</li>
 					</ul>
 				</div>
 			</div>

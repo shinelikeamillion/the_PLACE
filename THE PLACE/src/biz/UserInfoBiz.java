@@ -30,7 +30,7 @@ public class UserInfoBiz {
 		int id = userInfo.getUser_id();
 		userInfo.setUser_postNum(uidao.findPostNum(id));
 		userInfo.setUser_follwingNum(uidao.findFollowing(id));
-		userInfo.setUser_follwedNUm(uidao.findFollowed(id));
+		userInfo.setUser_follwedNum(uidao.findFollowed(id));
 		return userInfo;
 	}
 	

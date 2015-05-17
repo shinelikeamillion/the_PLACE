@@ -17,4 +17,9 @@ public class PostInfoBiz {
 	public List<PostInfo> findFriendsPostsById(int id) {
 		return postsInfoDAO.findFriendsPostsInfoById(id);
 	}
+	
+	//查询用户的推文
+		public List<PostInfo> findPostsInfoByPoint(String point) {
+			return postsInfoDAO.findPostsInfoByPoint(point);
+		}
 }

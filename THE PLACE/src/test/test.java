@@ -3,6 +3,7 @@ package test;
 import dao.UserInfoDAO;
 import servlet.CheckLoginServlt;
 import bean.PlayerInfo;
+import bean.PostInfo;
 import bean.UserInfo;
 import biz.AdminInfoBiz;
 import biz.PlayerInfoBiz;
@@ -30,13 +31,20 @@ public class test {
 		
 //		System.out.println(new UserInfoDAO().findFollowed(1));
 		
-		for (PlayerInfo info : new PlayerInfoBiz().findPlayerInfoByPoint("")) {
-			
-			System.out.print(info.getPlayer_country());
-			System.out.print(info.getPlayer_name());
+//		for (PlayerInfo info : new PlayerInfoBiz().findPlayerInfoByPoint("")) {
+//			
+//			System.out.print(info.getPlayer_country());
+//			System.out.print(info.getPlayer_name());
 //			System.out.print(info.getUser_pro());
 //			System.out.print(info.getUser_sex());
 //			System.out.print(info.getUser_age());
+//			System.out.println();
+//		}
+		
+		for (PostInfo info : new PostInfoBiz().findPostsInfoByPoint("")) {
+		
+			System.out.print(info.getPost_date());
+			System.out.print(info.getPost_pics());
 			System.out.println();
 		}
 	}

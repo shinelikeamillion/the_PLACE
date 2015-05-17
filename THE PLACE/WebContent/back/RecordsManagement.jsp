@@ -203,32 +203,17 @@
 				<div class="title">管理员</div>
 				<ul class="mList">
 					<li>
-						<h3>
-							<span>+</span>用户
-						</h3>
+						<h3><span>+</span>用户 </h3>
 						<dl>
-							<dd>
-								<a href="AccountManagement.jsp">管理用户</a>
-							</dd>
-							<dd>
-								<a href="PostManagement.html">管理推文</a>
-							</dd>
+							<dd><a href="AccountManagement.jsp">管理用户</a> </dd>
+							<dd><a href="PostManagement.jsp">管理推文</a></dd>
 						</dl>
 					</li>
 					<li>
-						<h3>
-							<span>+</span>内容
-						</h3>
-						<dl>
-							<dd>
-								<a href="../FindRecordsServlet">管理记录</a>
-							</dd>
-							<dd>
-								<a href="StarsCardManagement.html">管理球星卡</a>
-							</dd>
-							<dd>
-								<a href="#">备用...</a>
-							</dd>
+						<h3><span>+</span>内容</h3>
+						<dl><dd><a href="../FindRecordsServlet">管理Records</a></dd>
+							<dd><a href="StarsCardManagement.jsp">管理Stars</a></dd>
+							<dd><a href="#">备用...</a></dd>
 						</dl>
 					</li>
 				</ul>

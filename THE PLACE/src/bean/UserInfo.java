@@ -13,7 +13,7 @@ public class UserInfo {
 	private UserInfo user;
 	private int user_postNum;
 	private int user_follwingNum;
-	private int user_follwedNUm;
+	private int user_follwedNum;
 	
 	
 	public int getUser_postNum() {
@@ -28,11 +28,11 @@ public class UserInfo {
 	public void setUser_follwingNum(int user_follwingNum) {
 		this.user_follwingNum = user_follwingNum;
 	}
-	public int getUser_follwedNUm() {
-		return user_follwedNUm;
+	public int getUser_follwedNum() {
+		return user_follwedNum;
 	}
-	public void setUser_follwedNUm(int user_follwerNUm) {
-		this.user_follwedNUm = user_follwerNUm;
+	public void setUser_follwedNum(int user_follwerNUm) {
+		this.user_follwedNum = user_follwerNUm;
 	}
 	public Integer getUser_id() {
 		return user_id;

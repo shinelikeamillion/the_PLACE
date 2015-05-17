@@ -15,13 +15,11 @@
 	if (request.getParameter("point") != null) {
 		String point = request.getParameter("point");
 		//下面的方法改为模糊查询,名字就先不换了
-		pageContext.setAttribute("ALLSTARS",
-				playerInfoBiz.findPlayerInfoByPoint(point));
+		pageContext.setAttribute("ALLSTARS", playerInfoBiz.findPlayerInfoByPoint(point));
 		pageContext.setAttribute("POINT", point);
 	} else {
 		//全部遍历
-		pageContext.setAttribute("ALLSTARS",
-				playerInfoBiz.findPlayerInfoByPoint(""));
+		pageContext.setAttribute("ALLSTARS", playerInfoBiz.findPlayerInfoByPoint(""));
 	}
 %>
 
@@ -144,14 +142,14 @@
 	</div>
 	<div class="operation_user clearfix">
 		<div class="link fl">
-			<a href="#">THE PLACE</a><span>&gt;&gt;</span>内容<span>&gt;&gt;</span>管理StarsCard
+			<a href="#">THE PLACE</a><span>&gt;&gt;</span>内容<span>&gt;&gt;</span>管理球星卡
 		</div>
 		<div class="link fr">
-			<a href="#" class="icon icon_i">首页</a><span></span><a href="#"
-				class="icon icon_j">前进</a><span></span><a href="#"
-				class="icon icon_t">后退</a><span></span><a href="#"
-				class="icon icon_n">刷新</a><span></span><a href="#"
-				class="icon icon_e">退出</a>
+			<a href="AccountManagement.jsp" class="icon icon_i">首页</a><span></span>
+			<a href="#" class="icon icon_j">前进</a><span></span>
+			<a href="#" class="icon icon_t">后退</a><span></span>
+			<a href="StarsCardManagement.jsp" class="icon icon_n">刷新</a><span></span>
+			<a href="../Logout" class="icon icon_e">退出</a>
 		</div>
 	</div>
 	<div class="content clearfix">
@@ -164,13 +162,14 @@
 				<h3>添加球星卡</h3>
 				<div>
 					<form action="" method="get">
-						<img id="face-img" src="../images/default_pic.png" /> <input
+						<img id="face-img" src="../userfaces/default.png" /> <input
 							id="face" type="file" onchange="preview(this)" /> <input
 							id="name" name="player_name" placeholder="Name:" /> <input
 							id="height" name="player_height" placeholder="Height:" /> <input
 							id="weight" name="player_weight" placeholder="Weight:" /> <input
-							id="email" name="player_country" placeholder="Country:" /> <input
+							id="country" name="player_country" placeholder="Country:" /> <input
 							id="team" name="player_team" placeholder="Team:" /> <input
+							id="id" name="player_id" hidden="true" /> <input
 							id="specialty" name="player_specialty" placeholder="Specialty:" />
 						<textarea id="prefession" rows="3" name="player_prefession"
 							placeholder="Prefession:"></textarea>
@@ -226,7 +225,7 @@
 									<td hidden="true">${ starInfo.player_specialty }</td>
 									<td hidden="true">${ starInfo.player_prefession }</td>
 									<td align="center"><input type="button" value="查看"
-										class="btn show" id="starInfo-row${ status.index }" /> <input
+										class="btn update" id="starInfo-row${ status.index }" /> <input
 										type="button" value="拉黑" class="btn" /></td>
 								</tr>
 							</c:forEach>
@@ -241,32 +240,17 @@
 				<div class="title">管理员</div>
 				<ul class="mList">
 					<li>
-						<h3>
-							<span>+</span>用户
-						</h3>
+						<h3><span>+</span>用户 </h3>
 						<dl>
-							<dd>
-								<a href="AccountManagement.jsp">管理用户</a>
-							</dd>
-							<dd>
-								<a href="PostManagement.html">管理推文</a>
-							</dd>
+							<dd><a href="AccountManagement.jsp">管理用户</a> </dd>
+							<dd><a href="PostManagement.jsp">管理推文</a></dd>
 						</dl>
 					</li>
 					<li>
-						<h3>
-							<span>+</span>内容
-						</h3>
-						<dl>
-							<dd>
-								<a href="RecordsManagement.jsp">管理记录</a>
-							</dd>
-							<dd>
-								<a href="../FindRecordsServlet">管理球星卡</a>
-							</dd>
-							<dd>
-								<a href="#">备用...</a>
-							</dd>
+						<h3><span>+</span>内容</h3>
+						<dl><dd><a href="../FindRecordsServlet">管理Records</a></dd>
+							<dd><a href="StarsCardManagement.jsp">管理Stars</a></dd>
+							<dd><a href="#">备用...</a></dd>
 						</dl>
 					</li>
 				</ul>
@@ -283,11 +267,32 @@
 			$(".dialog-content > h3").html("添加记录");
 			$("#submit").val("添加");
 			$(".overlay,.dialog").addClass("show");
+			$("#face-img").attr("src", "../userfaces/default.png");
 		});
 		$(".update").click(function() {
 			$(".dialog-content > h3").html("修改记录");
 			$("#submit").val("修改");
 			$(".overlay,.dialog").addClass("show");
+
+			var face_img = $("."+$(this).attr("id")+" td:eq(4)").html();
+			var name = $("."+$(this).attr("id")+" td:eq(1)").html();
+			var height = $("."+$(this).attr("id")+" td:eq(6)").html();
+			var weight = $("."+$(this).attr("id")+" td:eq(7)").html();
+			var country = $("."+$(this).attr("id")+" td:eq(5)").html();
+			var team = $("."+$(this).attr("id")+" td:eq(8)").html();
+			var specialty = $("."+$(this).attr("id")+" td:eq(9)").html();
+			var prefession = $("."+$(this).attr("id")+" td:eq(2)").html();
+			var id = $("."+$(this).attr("id")+" td:eq(3)").html();
+			
+			$("#face-img").attr("src", "../"+face_img);
+			$("#name").val(name);
+			$("#height").val(height);
+			$("#weight").val(weight);
+			$("#country").val(country);
+			$("#team").val(team);
+			$("#specialty").val(specialty);
+			$("#prefession").val(prefession);
+			$("#id").val(id); 
 		});
 		//关闭悬浮框
 		$("#close , .overlay").click(function() {
@@ -298,10 +303,13 @@
 			$(this).siblings().toggle(600);
 		});
 
-		function preview(obj) {
-			var str = obj.value;
-			$("face-img").attr("src", "str");
-		}
+		//回车进行搜索
+		$("body").keydown(function() {
+            if (event.keyCode == "13") {//keyCode=13是回车键
+            	var point = $(".search").val();
+            	location.href = "StarsCardManagement.jsp?point="+point;
+            }
+        });
 	});
 </script>
 

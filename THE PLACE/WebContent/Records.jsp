@@ -9,8 +9,8 @@
 
 <%
 	RecordsInfoBiz recordInfoBiz = new RecordsInfoBiz();
-	List<RecordsInfo> recordsInfoList = recordInfoBiz.findRecordList();
-	List yearList = new ArrayList(); 
+	List<RecordsInfo> recordsInfoList = recordInfoBiz.findRecordList("");
+	List<String> yearList = new ArrayList<String>(); 
 	for(RecordsInfo recordsInfo : recordsInfoList) {
 	String year = recordsInfo.getRecord_date().substring(0, 4);
 	if (yearList.indexOf(year) == -1) { 

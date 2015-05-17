@@ -18,7 +18,7 @@
 	}
 %>
 	<head>
-		<title>explore</title>
+		<title>index</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<link href="dist/css/material.min.css" rel="stylesheet" type="text/css">
 
@@ -65,10 +65,9 @@
 				padding-left: 30px;
 				width: 180px;
 				height: 30px;
-				border: 2px solid;
-				background-color: #36465d;
-				border-radius: 0px 16px 16px 0px;
-				border-color: #9E9E9E;
+				border: none;
+				border-radius: 50% ;
+				background-color: #1D242D;
 				position: absolute;
 			}
 			.search span {
@@ -293,22 +292,22 @@
 				top: 0;
 				left: 0;
 				z-index: 5;
-				background: rgba(143, 27, 15, 0.8);
+				background: rgba(0, 0, 0, 0.7);
 				-webkit-transition: all 0.3s;
 				-moz-transition: all 0.3s;
 				transition: all 0.3s;
 			}
 			.post-dialog {
-				width: 40%;
-				margin: 0 auto;
+				min-width: 35%;
 				position: fixed;
+				margin: 100px 25%;
+				display: block;
 				box-shadow: #000000;
 				color: #a1a1a1;
 				text-align: left;
 				z-index: 99;
 			}
 			.post-dialog img {
-				height: 54px;
 				width: 54px;
 				float: left;
 				border-radius: 4px;
@@ -368,11 +367,11 @@
 			<a href="Knowlage&Culture.html"><img class="logo" src="images/logo.png"/></a>
 			<div class="logo-search-bar">
 				<div class="search">
-					<form class="search-form">
+					<div class="search-form">
 						<input class="point " type="text" placeholder="Search the PLACE" />
 						<span class="mdi-action-find-replace"></span>
 						<input type="hidden" />
-					</form>
+					</div>
 				</div>
 			</div>
 			<div class="user-bar">
@@ -406,12 +405,12 @@
 	描述：发文本
 -->
 		<div class="post-dialog hidden" id="postText">
-			<img class="user-face" src="userfaces/default.png"/>
+			<img class="user-face" src="${ USERINFO.user_face }"/>
 			<form id="textForm" class="textForm">
-				<label style="padding: 5px;" >userName</label>
+				<label style="padding: 5px; width: 100%;" >${ USERINFO.user_name }</label>
 				<input style="font-size: 2em;" placeholder="Title:" />
 				<textarea rows="3" placeholder="Your text here" ></textarea>
-				<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
+				<input style="font-size: 1em;width: 100%;" placeholder="tags : #tag1 #tag2"/>
 				<div class="close-btn" style="float: left;">
 					<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
 					<input type="reset" class="back-btn" value=""/>
@@ -429,9 +428,9 @@
 	描述：发送图片
 -->
 		<div class="post-dialog hidden"id="postPic" >
-			<img class="user-face" src="userfaces/default.png"/>
+			<img class="user-face" src="${ USERINFO.user_face }"/>
 			<form id="picForm" class="textForm">
-				<label style="padding: 5px;" >userName</label>
+				<label style="padding: 5px; width: 100%;" >${ USERINFO.user_name }</label>
 				<input style="font-size: 2em;" placeholder="Title:" />
 				<input type="file" value="your pics"/>
 				<textarea rows="3" placeholder="Your text here" ></textarea>
@@ -453,9 +452,9 @@
 	描述：
 -->
 		<div class="post-dialog hidden" id="postVideo">
-			<img class="user-face" src="userfaces/default.png"/>
+			<img class="user-face" src="${ USERINFO.user_face }"/>
 			<form id="videoForm" class="textForm">
-				<label style="padding: 5px;" >userName</label>
+				<label style="padding: 5px;  width: 100%;" >${ USERINFO.user_name }</label>
 				<input style="font-size: 2em;" placeholder="Title:" />
 				<input placeholder="videoWebPath:" />
 				<textarea rows="3" placeholder="Your text here" ></textarea>
@@ -500,7 +499,7 @@
 
 					</a> <a class="mdi-social-people-outline" href="#">
 
-						Followers<span>${ USERINFO.user_follwedNUm }</span>
+						Followers<span>${ USERINFO.user_follwedNum }</span>
 
 					</a>
 						<br> <a class="mdi-content-gesture" href="#">
@@ -519,9 +518,7 @@
 						<br> <a class="mdi-social-people" href="#"> Following <span>${ USERINFO.user_follwingNum }</span>
 
 					</a>
-						<br> <a class="mdi-social-person-add" href="#"> Find
-
-						Others <span></span>
+						<br> <a class="mdi-social-person-add" href="Search.jsp?find=users"> Find Others <span></span>
 
 					</a>
 						<br>
@@ -606,35 +603,53 @@
 						$(".face-bubble").fadeOut();
 					}
 				});
-				//对搜索框的操作
-				$("input").focus(function() {
-					$(this).css("border-color", "#ffffff");
+				//对搜索动画的操作
+				$(".search input").focus(function() {
 					$(this).animate({
-						width: "250px"
+						height: "50px"
 					}, 'slow');
 				});
+				$(".search input").blur(function() {
+					$(this).animate({
+						height: "30px"
+					}, 'slow');
+				});
+				//回车进行搜索
+				$("body").keydown(function() {
+		            if (event.keyCode == "13") {//keyCode=13是回车键
+		            	var point = $(".point").val();
+		            	//alert(point);
+		            	location.href = "Search.jsp?point="+point;
+		            }
+		        });
+				//退出
 				$(".signout-button").click(function() {
 					$.get("./Logout",null,function() {
 						window.location.reload();
 					});
 				});
+				//喜欢
 				$(".mdi-action-favorite").click(function() {
 					$(this).css("color","#F44336");
 					
 				});
-/* //				打开post窗口
+//				打开post窗口
 				$('label').click(function() {
 					var dialog = $(this).attr('for');
 					$(".post-bubble").hide();
 					$(".overlay").removeClass("hidden");
 					if (dialog == "postText") {
-						$(".postText").removeClass("hidden");
+						$("#postText").removeClass("hidden");
+					} else if (dialog == "postPic") {
+						$("#postPic").removeClass("hidden");
+					} else if (dialog == "postVideo") {
+						$("#postVideo").removeClass("hidden");
 					}
 				});
 //				关闭post窗口
 				$(".close-btn , .overlay").click(function() {
-					
-				}); */
+					$(".overlay, .post-dialog").addClass("hidden");
+				});
 			});
 		</script>
 		
