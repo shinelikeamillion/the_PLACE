@@ -14,6 +14,26 @@ public class AdminInfoDAO {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	
+	//拉黑和取消用户
+	public boolean blockUser(int userId, boolean isBlock){
+		connection = DBManager.getconConnection();
+		String sql = "UPDATE the_place.users SET user_status = 0 WHERE user_id ="+userId;
+		if (isBlock) {
+			sql = "UPDATE the_place.users SET user_status = 1 WHERE user_id ="+userId;
+		}
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		} finally {
+			DBManager.close(connection, preparedStatement);
+		}
+		return true;
+	}
+	
+	//检测用户的登录
 	public AdminInfo checkAdminLogin(UserInfo userInfo) {
 		System.out.println(userInfo.getUser_email());
 		AdminInfo adminInfo = new AdminInfo();

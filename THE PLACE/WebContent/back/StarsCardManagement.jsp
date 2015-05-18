@@ -10,7 +10,7 @@
 	PlayerInfoBiz playerInfoBiz = new PlayerInfoBiz();
 
 	if (session.getAttribute("ADMININFO") == null) {
-		response.sendRedirect("../Signin.jsp?error=2");
+		//response.sendRedirect("../Signin.jsp?error=2");
 	}
 	if (request.getParameter("point") != null) {
 		String point = request.getParameter("point");

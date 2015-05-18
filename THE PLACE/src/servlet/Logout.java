@@ -23,6 +23,7 @@ public class Logout extends HttpServlet {
 			request.getSession().removeAttribute("ADMININFO");
 			response.sendRedirect("back/AccountManagement.jsp");
 		}
+		response.sendRedirect("Signin.jsp");
 	}
 
 }

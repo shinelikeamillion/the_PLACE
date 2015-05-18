@@ -28,13 +28,19 @@ public class PostsInfoDAO {
 			preparedStatement.setString(4, postInfo.getPost_video() );
 			preparedStatement.setString(5, postInfo.getPost_content() );
 			preparedStatement.setString(6, postInfo.getPost_tags() );
+			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 			return false;
 		} finally {
-			DBManager.close(connection, preparedStatement, resultSet);
+			DBManager.close(connection, preparedStatement);
 		}
-		return true;
+		System.out.println(postInfo.getPost_content());
+		System.out.println(postInfo.getPost_tags());
+		System.out.println(postInfo.getPost_title());
+		System.out.println(postInfo.getPost_pics());
+		System.out.println(postInfo.getPost_content());
+		return false;
 	}
 	
 	// 通过id遍历用户的推文

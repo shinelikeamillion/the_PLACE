@@ -373,7 +373,7 @@
 	描述：导航栏
 -->
 		<div class="header-bar">
-			<a href="Knowlage&Culture.html"><img class="logo" src="images/logo.png"/></a>
+			<a href="index.jsp"><img class="logo" src="images/logo.png"/></a>
 			<div class="logo-search-bar">
 				<div class="search">
 					<div class="search-form">
@@ -386,6 +386,9 @@
 			<div class="user-bar">
 				<div class="">
 					<a class="mdi-action-polymer select" href="#"></a>
+				</div>
+				<div class="">
+					<a class="mdi-action-receipt" href="Knowlage&Culture.html"></a>
 				</div>
 				<div class="">
 					<a class="mdi-action-explore" href="Search.jsp?point="></a>
@@ -635,7 +638,7 @@
 				//回车进行搜索
 				$("body").keydown(function() {
 					var point = $(".point").val();
-					if (point != "") {
+					if ( $(".point").focus() ) {
 			            if (event.keyCode == "13" ) {//keyCode=13是回车键
 			            	location.href = "Search.jsp?point="+point;
 			            }
@@ -674,6 +677,7 @@
 					$(".overlay, .post-dialog").addClass("hidden");
 					$(".submit-btn").children("a").attr("class","mdi-content-send");
 					$(".submit-btn").children("a").css("font-size","2em");
+					$(".close-btn").children("a").html("");
 				});
 //				发表按钮
 				$(".submit-btn").click(function(){
@@ -693,6 +697,8 @@
 					    	$(".submit-btn").children("a").animate({fontSize: "4em"}, "slow", function() {
 					    		 $(".close-btn").click();
 					    	 });
+					    } else {
+					    	$(".close-btn").children("a").html("出错了，请重试");
 					    }
 					  });
 				});

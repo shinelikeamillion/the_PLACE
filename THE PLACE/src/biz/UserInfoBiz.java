@@ -3,13 +3,19 @@ package biz;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.ast.ReturnStatement;
-
 import bean.UserInfo;
 import dao.UserInfoDAO;
 
 public class UserInfoBiz {
 	UserInfoDAO uidao = new UserInfoDAO();
+	
+	//follow or unfollow
+	public void follow (String my_id, String friend_id, boolean isFollow) {
+		int myId = Integer.parseInt(my_id);
+		int friendId = Integer.parseInt(friend_id);
+		
+		uidao.followOthers(myId, friendId, isFollow);
+	}
 	
 	//登录
 	public UserInfo checkLogin (UserInfo user) {

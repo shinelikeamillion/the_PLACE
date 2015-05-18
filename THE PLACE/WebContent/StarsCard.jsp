@@ -30,7 +30,6 @@
 a {
 	text-decoration: none;
 }
-
 .main-header {
 	top: 0;
 	width: 100%;
@@ -156,7 +155,7 @@ button {
 	border-radius: 2px;
 }
 </style>
-<title></title>
+<title>球星卡</title>
 </head>
 
 <body>
@@ -256,7 +255,7 @@ button {
 			$(".stars-btn").click(function(){
 				
 				var url = "./findPlayerByNameServlet?playerName="+$(this).html();
-				$.get(url,null,function() {
+				$.get(url,function() {
 					window.location.reload();
 				});
 			});

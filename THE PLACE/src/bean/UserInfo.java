@@ -15,6 +15,14 @@ public class UserInfo {
 	private int user_postNum;
 	private int user_follwingNum;
 	private int user_follwedNum;
+	private int user_status;
+	
+	public int getUser_status() {
+		return user_status;
+	}
+	public void setUser_status(int user_status) {
+		this.user_status = user_status;
+	}
 	private List<Integer> friendsId;
 	
 	public List<Integer> getFriendsId() {

@@ -9,7 +9,7 @@
 	UserInfoBiz userInfoBiz = new UserInfoBiz();
 	
 	if (session.getAttribute("ADMININFO") == null) {
-		response.sendRedirect("../Signin.jsp?error=2");
+		//response.sendRedirect("../Signin.jsp?error=2");
 	}
 	if (request.getParameter("point") != null) {
 		String point = request.getParameter("point");
@@ -203,7 +203,12 @@
 									<td hidden="true">${ userInfo.user_id }</td>
 									<td align="center">
 										<input type="button" value="查看" class="btn show" id="userInfo-row${ status.index }" />
-										<input type="button" value="拉黑" class="btn"/>
+										<c:if test="${ userInfo.user_status == 0 }">
+											<input type="button" value="拉黑" class="btn block-btn" id="${ userInfo.user_id }"/>
+										</c:if>
+										<c:if test="${ userInfo.user_status == 1 }">
+											<input type="button" value="已拉黑" class="btn unBlock-btn" id="${ userInfo.user_id } "/>
+										</c:if>
 									</td>
 								</tr>
 							</c:forEach>
@@ -261,6 +266,7 @@
 			$("#email").val(email);
 			$("#pro").val(pro);
 			$("#user_id").val(id);
+			
 		});
 		//关闭悬浮框
 		$("#close , .overlay").click(function() {
@@ -271,13 +277,31 @@
 			$(this).siblings().toggle(600);
 		});
 		//回车进行搜索
-		$("body").keydown(function() {
+		$(".block_btn").keydown(function() {
             if (event.keyCode == "13") {//keyCode=13是回车键
             	var point = $(".search").val();
             	location.href = "AccountManagement.jsp?point="+point;
             }
         });
 		
+		//拉黑用户
+		$(".block-btn, .unBlock-btn").click(function() {
+			var userId = $(this).attr("id");
+			var url = "../BlockUserServlet?userId="+parseInt(userId)+"&isBlock=true";
+			
+			if ($(this).hasClass("block-btn")) {
+				$.get(url,function(data,status){
+					alert(data);
+					window.location.reload();
+				});
+			} else {
+				url = "../BlockUserServlet?userId="+parseInt(userId)+"&isBlock=false";
+				$.get(url,function(data,status){
+					alert(data);
+					window.location.reload();
+				});
+			}
+		});
 	});
 </script>
 

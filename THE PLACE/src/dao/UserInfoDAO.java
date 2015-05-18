@@ -16,6 +16,27 @@ public class UserInfoDAO {
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
 	
+	//follow 
+	public void followOthers(int my_id, int friend_id, boolean isFollow) {
+		connection = DBManager.getconConnection();
+		String sql;
+		if (isFollow) {
+			 sql = "INSERT INTO the_place.relationship VALUES(?, ?, 1);";
+		} else {
+			 sql = "DELETE FROM the_place.relationship WHERE my_id=? and friend_id=?";
+		}
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, my_id);
+			preparedStatement.setInt(2, friend_id);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(connection, preparedStatement);
+		}
+	}
+	
 	//遍历所有用户的所有的信息
 	public List<UserInfo> findAllUserInfo (String point) {
 		//模糊关键词
@@ -41,6 +62,7 @@ public class UserInfoDAO {
 				userInfo.setUser_face(resultSet.getString(7));
 				userInfo.setUser_pro(resultSet.getString(8));
 				userInfo.setReg_time(resultSet.getString(9));
+				userInfo.setUser_status(resultSet.getInt(10));
 				allUserList.add(userInfo);
 			} 
 		} catch (SQLException e) {
@@ -95,6 +117,7 @@ public class UserInfoDAO {
 				userInfo.setUser_face(resultSet.getString(7));
 				userInfo.setUser_pro(resultSet.getString(8));
 				userInfo.setReg_time(resultSet.getString(9));
+				userInfo.setUser_status(resultSet.getInt(10));
 //这个方式关闭时会有冲突--放弃!
 //				userInfo.setUser_postNum(findPostNum(resultSet.getInt(1)));
 //				userInfo.setUser_follwingNum(findFollowing(resultSet.getInt(1)));
