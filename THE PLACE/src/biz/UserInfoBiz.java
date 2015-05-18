@@ -1,5 +1,6 @@
 package biz;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jdt.internal.compiler.ast.ReturnStatement;
@@ -28,9 +29,18 @@ public class UserInfoBiz {
 	//给用户对象添加属性
 	public UserInfo improveUserInfo(UserInfo userInfo) {
 		int id = userInfo.getUser_id();
+		
 		userInfo.setUser_postNum(uidao.findPostNum(id));
-		userInfo.setUser_follwingNum(uidao.findFollowing(id));
-		userInfo.setUser_follwedNum(uidao.findFollowed(id));
+		userInfo.setUser_follwingNum(uidao.findFollowing(id).size());
+		userInfo.setUser_follwedNum(uidao.findFollowed(id).size());
+		
+//		把用户好友的列表存入用户
+		List<Integer> friendsId = new ArrayList<Integer>();
+		for (UserInfo info : new UserInfoDAO().findFollowing(id)) {
+			friendsId.add(info.getUser_id());
+		}
+		userInfo.setFriendsId(friendsId);
+		
 		return userInfo;
 	}
 	

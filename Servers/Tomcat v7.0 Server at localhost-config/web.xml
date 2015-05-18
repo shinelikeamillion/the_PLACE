@@ -83,16 +83,10 @@
   <!--                       globalXsltFile[null]                           -->
   <!--                                                                      -->
   <!--   globalXsltFile      Site wide configuration version of             -->
-  <!--                       localXsltFile. This argument must either be an -->
-  <!--                       absolute or relative (to either                -->
-  <!--                       $CATALINA_BASE/conf or $CATALINA_HOME/conf)    -->
-  <!--                       path that points to a location below either    -->
-  <!--                       $CATALINA_BASE/conf (checked first) or         -->
-  <!--                       $CATALINA_HOME/conf (checked second).[null]    -->
+  <!--                       localXsltFile This argument is expected        -->
+  <!--                       to be a physical file. [null]                  -->
   <!--                                                                      -->
-  <!--   showServerInfo      Should server information be presented in the  -->
-  <!--                       response sent to clients when directory        -->
-  <!--                       listings is enabled? [true]                    -->
+  <!--                                                                      -->
 
     <servlet>
         <servlet-name>default</servlet-name>
@@ -312,8 +306,7 @@
   <!--                                                                      -->
   <!--   cgiPathPrefix        The CGI search path will start at             -->
   <!--                        webAppRootDir + File.separator + this prefix. -->
-  <!--                        If not set, then webAppRootDir is used.       -->
-  <!--                        Recommended value: WEB-INF/cgi                -->
+  <!--                        [WEB-INF/cgi]                                 -->
   <!--                                                                      -->
   <!--   debug                Debugging detail level for messages logged    -->
   <!--                        by this servlet.  [0]                         -->
@@ -4601,9 +4594,7 @@
   <!-- to use within your application.                                       -->
 
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
-        <welcome-file>index.htm</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>Introduction.html</welcome-file>
     </welcome-file-list>
 
 </web-app>

@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.List;
+
 public class UserInfo {
 	private Integer user_id;
 	private String user_name;
@@ -10,12 +12,17 @@ public class UserInfo {
 	private String user_face;
 	private String user_pro;
 	private String reg_time;
-	private UserInfo user;
 	private int user_postNum;
 	private int user_follwingNum;
 	private int user_follwedNum;
+	private List<Integer> friendsId;
 	
-	
+	public List<Integer> getFriendsId() {
+		return friendsId;
+	}
+	public void setFriendsId(List<Integer> friendsId) {
+		this.friendsId = friendsId;
+	}
 	public int getUser_postNum() {
 		return user_postNum;
 	}
@@ -88,12 +95,5 @@ public class UserInfo {
 	public void setReg_time(String reg_time) {
 		this.reg_time = reg_time;
 	}
-	public UserInfo getUser() {
-		return user;
-	}
-	public void setUser(UserInfo user) {
-		this.user = user;
-	}
-	
 	
 }

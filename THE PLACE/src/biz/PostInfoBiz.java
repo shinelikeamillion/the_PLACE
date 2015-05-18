@@ -22,4 +22,9 @@ public class PostInfoBiz {
 		public List<PostInfo> findPostsInfoByPoint(String point) {
 			return postsInfoDAO.findPostsInfoByPoint(point);
 		}
+	
+	//用户发表推文
+		public boolean post(PostInfo postInfo) {
+			return postsInfoDAO.post(postInfo);
+		}
 }

@@ -15,7 +15,28 @@ public class PostsInfoDAO {
 	private Connection connection = null;
 	private PreparedStatement preparedStatement = null;
 	private ResultSet resultSet = null;
-
+	
+	public boolean post (PostInfo postInfo) {
+		connection = DBManager.getconConnection();
+		String sql = "insert into the_place.news values (null, ?, ?, ?, ?, ?, ?, NOW())";
+		
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, postInfo.getOwner_id() );
+			preparedStatement.setString(2, postInfo.getPost_title() );
+			preparedStatement.setString(3, postInfo.getPost_pics() );
+			preparedStatement.setString(4, postInfo.getPost_video() );
+			preparedStatement.setString(5, postInfo.getPost_content() );
+			preparedStatement.setString(6, postInfo.getPost_tags() );
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			return false;
+		} finally {
+			DBManager.close(connection, preparedStatement, resultSet);
+		}
+		return true;
+	}
+	
 	// 通过id遍历用户的推文
 	public List<PostInfo> findUserPostsInfoById(int id) {
 		connection = DBManager.getconConnection();
@@ -41,7 +62,7 @@ public class PostsInfoDAO {
 				postsInfoList.add(postInfo);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} finally {
 			DBManager.close(connection, preparedStatement, resultSet);
 		}
@@ -90,7 +111,7 @@ public class PostsInfoDAO {
 		connection = DBManager.getconConnection();
 		UserInfoBiz userInfoBiz = new UserInfoBiz();
 		
-		String sql = "SELECT * FROM the_place.news WHERE owner_id IN "
+		String sql = "SELECT * FROM the_place.news WHERE owner_id = ? or owner_id IN "
 				+ "(SELECT friend_id  FROM the_place.relationship WHERE my_id=? and state=1) "
 				+ "order by news_date desc";
 		List<PostInfo> postsInfoList = new ArrayList<PostInfo>();
@@ -98,6 +119,7 @@ public class PostsInfoDAO {
 		try {
 			preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, id);
+			preparedStatement.setInt(2, id);
 			resultSet = preparedStatement.executeQuery();
 			
 			while (resultSet.next()) {

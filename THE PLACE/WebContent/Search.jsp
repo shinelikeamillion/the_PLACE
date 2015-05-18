@@ -16,22 +16,16 @@
 	} else {
 		String find = request.getParameter("find");
 		String point = request.getParameter("point");
-		
+		pageContext.setAttribute("point", point);
 		boolean isFindPost = true;
-		if (find != null) {
-			if (find.equals("users")) { 
-				List<UserInfo> userInfoList = new UserInfoBiz().findAllUsersInfo(point);
-				isFindPost = false;
-				pageContext.setAttribute("userInfoList", userInfoList);
-			} else if(point != null) {
-					postInfoList = postInfoBiz.findPostsInfoByPoint(point);
-			}
-		} else {
-			postInfoList = postInfoBiz.findPostsInfoByPoint("");
-		}
-		pageContext.setAttribute("postInfoList", postInfoList);
+		/* if (find.equals("users")) {
+			isFindPost = false;
+			List<UserInfo> userInfoList = new UserInfoBiz().findAllUsersInfo(point);
+			pageContext.setAttribute("userInfoList", userInfoList); */
+		postInfoList = postInfoBiz.findPostsInfoByPoint(point);
+		
 		pageContext.setAttribute("isFindPost", isFindPost);
-		pageContext.setAttribute("point", point+"nihao");
+		pageContext.setAttribute("postInfoList", postInfoList);
 	}
 %>
 
@@ -105,6 +99,7 @@
 				color: #D84315;
 			}
 			.container{
+				width: 100%;
 				padding-top: 75px ;
 				padding-right: 20px;
 				position: absolute;
@@ -151,6 +146,9 @@
 				padding: 5px;
 				color: #9D9D9D;
 			}
+			.post-title{
+				padding-left: 5px;
+			}
 			.post-text{
 			    max-height: 50px;
 				overflow: hidden;
@@ -172,7 +170,7 @@
 			<div class="logo-search-bar">
 				<div class="search">
 					<div class="search-form">
-						<input class="point " type="text" placeholder="Search the PLACE" />
+						<input class="point " type="text" placeholder="Search the PLACE" value="${ point }" />
 						<input type="hidden" />
 					</div>
 				</div>
@@ -204,9 +202,20 @@
 							<div class="user-info">
 								<img class="user-face" src="${ post.ownerInfo.user_face }" />
 								<div class="user-name">${ post.ownerInfo.user_name }</div>
-								<a class="follow" >Follow Me</a>
+								<!-- <a class="follow" >Follow Me</a> -->
+								<c:set var="user_id" value="${ post.ownerInfo.user_id }"></c:set>
+								<c:forEach var="friendId" items="${ USERINFO.friendsId }">
+									<c:if test="${ user_id eq friendId }">
+										<a class="follow" >Following</a>
+									</c:if>
+									<c:if test="${ user_id ne friendId }">
+										<a class="follow" >Follow Me</a>
+									</c:if>
+								</c:forEach>
+								
 							</div>
 							<img class="post-pic" src="${ post.post_pics }"/>
+							<div class="post-title" >Title：${ post.post_title }</div>
 							<div class="post-text" >${ post.post_content }</div>
 							<div class="post-tags">tags: ${ post.post_tags }</div><hr>
 							<div class="post-footer">
@@ -250,7 +259,6 @@
 				$("body").keydown(function() {
 		            if (event.keyCode == "13") {//keyCode=13是回车键
 		            	var point = $(".point").val();
-		            	//alert(point);
 		            	location.href = "Search.jsp?point="+point;
 		            }
 		        });

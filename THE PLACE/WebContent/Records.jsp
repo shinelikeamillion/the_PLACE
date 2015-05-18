@@ -75,8 +75,8 @@ a {
 			<nav class="nav">
 				<a class="nav-item select" id="hot-news" href="">HotNews</a> <a
 					class="nav-item" id="culture" href="Knowlage&Culture.html">Knowledge&amp;Culture</a>
-				<a class="nav-item" id="stars" href="Stars.html">Stars</a> <a
-					class="nav-item" id="records" href="Records.html"
+				<a class="nav-item" id="stars" href="StarsCard.jsp">Stars</a> <a
+					class="nav-item" id="records" href="Records.jsp"
 					style="color: #ffffff;">Records</a>
 					<a class="nav-item" id="blog" href="index.jsp">Blog</a>
 			</nav>

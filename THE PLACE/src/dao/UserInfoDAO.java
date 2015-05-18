@@ -9,6 +9,7 @@ import java.util.List;
 
 import db.DBManager;
 import bean.UserInfo;
+import biz.PostInfoBiz;
 
 public class UserInfoDAO {
 	private Connection connection = null;
@@ -160,56 +161,82 @@ public class UserInfoDAO {
 	//查询用户的发帖数
 	public int findPostNum(int id) {
 		int postnum = 0;
-		connection = DBManager.getconConnection();
-		String sql = "select count(*) from the_place.news where owner_id="+id;
-		try {
-			preparedStatement = connection.prepareStatement(sql);
-			resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()) {
-				postnum = resultSet.getInt(1);
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			DBManager.close(connection, preparedStatement, resultSet);
-		}
+		
+		postnum = new PostInfoBiz().findUserPostsById(id).size();
+		
+//好蠢哦		
+//		connection = DBManager.getconConnection();
+//		String sql = "select count(*) from the_place.news where owner_id="+id;
+//		try {
+//			preparedStatement = connection.prepareStatement(sql);
+//			resultSet = preparedStatement.executeQuery();
+//			while (resultSet.next()) {
+//				postnum = resultSet.getInt(1);
+//			}
+//		} catch (SQLException e) {
+//			System.out.println(e.getMessage());
+//		} finally {
+//			DBManager.close(connection, preparedStatement, resultSet);
+//		}
 		return postnum;
 	}
 	//查询用户follow人数
-		public int findFollowing(int id) {
-			int postnum = 0;
+		public List<UserInfo> findFollowing(int id) {
+			List<UserInfo> userInfoList = new ArrayList<UserInfo>();
+			UserInfo userInfo;
 			connection = DBManager.getconConnection();
-			String sql = "SELECT COUNT(*) FROM the_place.relationship WHERE my_id="+id;
+			String sql = "SELECT * FROM the_place.users WHERE user_id IN (SELECT friend_id FROM the_place.relationship WHERE my_id =?)";
+			
 			try {
 				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, id);
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
-					postnum = resultSet.getInt(1);
+					userInfo = new UserInfo();
+					userInfo.setUser_id(resultSet.getInt(1));
+					userInfo.setUser_name(resultSet.getString(2));
+					userInfo.setUser_age(resultSet.getInt(4));
+					userInfo.setUser_sex(resultSet.getString(5));
+					userInfo.setUser_email(resultSet.getString(6));
+					userInfo.setUser_face(resultSet.getString(7));
+					userInfo.setUser_pro(resultSet.getString(8));
+					userInfoList.add(userInfo);
 				}
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			} finally {
 				DBManager.close(connection, preparedStatement, resultSet);
 			}
-			return postnum;
+			return userInfoList;
 		}
 		
 	//查询用户被follow的人数
-		public int findFollowed(int id) {
-			int postnum = 0;
+		public List<UserInfo> findFollowed(int id) {
+			List<UserInfo> userInfoList = new ArrayList<UserInfo>();
+			UserInfo userInfo;
 			connection = DBManager.getconConnection();
-			String sql = "SELECT COUNT(*) FROM the_place.relationship WHERE friend_id="+id;
+			String sql = "SELECT * FROM the_place.users WHERE user_id IN (SELECT friend_id FROM the_place.relationship WHERE friend_id =?)";
+			
 			try {
 				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, id);
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
-					postnum = resultSet.getInt(1);
+					userInfo = new UserInfo();
+					userInfo.setUser_id(resultSet.getInt(1));
+					userInfo.setUser_name(resultSet.getString(2));
+					userInfo.setUser_age(resultSet.getInt(4));
+					userInfo.setUser_sex(resultSet.getString(5));
+					userInfo.setUser_email(resultSet.getString(6));
+					userInfo.setUser_face(resultSet.getString(7));
+					userInfo.setUser_pro(resultSet.getString(8));
+					userInfoList.add(userInfo);
 				}
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			} finally {
 				DBManager.close(connection, preparedStatement, resultSet);
 			}
-			return postnum;
+			return userInfoList;
 		}
 }

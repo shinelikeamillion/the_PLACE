@@ -254,6 +254,7 @@ button {
 		$(document).ready(function() {
 			
 			$(".stars-btn").click(function(){
+				
 				var url = "./findPlayerByNameServlet?playerName="+$(this).html();
 				$.get(url,null,function() {
 					window.location.reload();

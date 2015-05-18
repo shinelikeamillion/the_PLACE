@@ -7,7 +7,7 @@
 <%
 	int id;
 	if (session.getAttribute("USERINFO") == null) {
-		response.sendRedirect("Signin.jsp?error=2");
+		response.sendRedirect("Signin.jsp?erroMsg=2");
 	} else {
 		PostInfoBiz postInfoBiz = new PostInfoBiz();
 		id = ((UserInfo)session.getAttribute("USERINFO")).getUser_id();
@@ -54,6 +54,7 @@
 				width: 56px;
 				margin: 4px;
 				float: left;
+				cusor: pointer;
 			}
 			.logo-search-bar div {
 				float: left;
@@ -94,10 +95,17 @@
 				margin-left: 200px;
 				margin-right: 50px;
 			}
+/*userpost弹窗样式*/			
 			.user-post {
 				float: left;
 				padding-top: 20px;
 				width: 650px;
+			}
+			.user-post textarea{
+				max-width: 94%; 
+				margin:0 20px; 
+				overflow: auto;
+				max-height: 5em;
 			}
 			.user-face img {
 				height: 64px;
@@ -152,7 +160,7 @@
 				color: #ffffff;
 				margin-top: 20px;
 				width: 200px;
-				position: absolute;
+				position: fixed;
 			}
 			.post-bubble {
 				display: none;
@@ -312,7 +320,7 @@
 				float: left;
 				border-radius: 4px;
 			}
-			.textForm {
+			.post-Form {
 				width: 70%;
 				background: #ffffff;
 				margin-left: 30px;
@@ -321,22 +329,23 @@
 				border-radius: 4px;
 				box-shadow: 5px 5px 15px #888888;
 			}
-			.textForm input, textarea{
+			.post-Form input, textarea{
 				width: 100%;
 				border: none;
 				padding: 5px;
 				margin-top: 2px;
 				border-radius: 2px;
 			}
-			.textForm textarea{
+			.post-Form textarea{
 				color: #a1a1a1; 
 				font-size: 1.4em; 
 				font-weight: 300;
 			}
-			.textForm a{
+			.post-Form a{
 				position: absolute;
+				font-size: 2em;
 			}
-			.textForm .close-btn, .submit-btn {
+			.post-Form .close-btn, .submit-btn {
 				width: 8%;
 				
 			}
@@ -379,7 +388,7 @@
 					<a class="mdi-action-polymer select" href="#"></a>
 				</div>
 				<div class="">
-					<a class="mdi-action-explore" href="#"></a>
+					<a class="mdi-action-explore" href="Search.jsp?point="></a>
 				</div>
 				<div class="">
 					<a class="mdi-social-notifications-paused" href="#"></a>
@@ -392,7 +401,7 @@
 				</div>
 			</div>
 		</div>
-<!-- post弹窗按钮 -->
+<!-- post按钮 -->
 		<div class="post-bubble shadow-z-4 bubble">
 			<label for="postText"><a class="mdi-action-translate" href="#"></a><span>Text</span></label>
 			<label for="postPic"><a class="mdi-image-color-lens" style="color: #FFA000" href="#"></a> <span>Photo</span></label>
@@ -402,26 +411,29 @@
 <!--
 	作者：940788048@qq.com
 	时间：2015-05-16
-	描述：发文本
+	描述：post窗口
 -->
-		<div class="post-dialog hidden" id="postText">
+		<div class="post-dialog hidden">
 			<img class="user-face" src="${ USERINFO.user_face }"/>
-			<form id="textForm" class="textForm">
+			<form id="textForm" class="post-Form" action="./PostServlet" method="get">
+				<input type="hidden" name="owner_id" id="owner_id" value="${ USERINFO.user_id }" />
 				<label style="padding: 5px; width: 100%;" >${ USERINFO.user_name }</label>
-				<input style="font-size: 2em;" placeholder="Title:" />
-				<textarea rows="3" placeholder="Your text here" ></textarea>
-				<input style="font-size: 1em;width: 100%;" placeholder="tags : #tag1 #tag2"/>
+				<input style="font-size: 2em;" id="post_title" placeholder="Title:" name="post_title" />
+				<input id="input-pics" type="file" id="post_pics" value="your pics"name="post_pics"/>
+				<input id="input-url" placeholder="videoWebPath:" id="post_url" name="post_url"/>
+				<textarea rows="3" placeholder="Your text here" id="post_content" name="post_content"></textarea>
+				<input placeholder="tags : #tag1 #tag2" id="post_tags" name="post_tags"/>
 				<div class="close-btn" style="float: left;">
 					<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
 					<input type="reset" class="back-btn" value=""/>
 				</div>
 				<div class="submit-btn" style="float: right;">
 					<a class="mdi-content-send" style="font-size: 1.6em; color: #0066FF;"></a>
-					<input type="submit" class="back-btn" value="" />
+					<input class="back-btn" value="" />
 				</div>
 			</form>
 		</div>
-		
+<%-- 与上面合并了 		
 <!--
 	作者：940788048@qq.com
 	时间：2015-05-16
@@ -429,12 +441,13 @@
 -->
 		<div class="post-dialog hidden"id="postPic" >
 			<img class="user-face" src="${ USERINFO.user_face }"/>
-			<form id="picForm" class="textForm">
+			<form id="picForm" class="post-Form" action="" method="get">
+				<input type="hidden" name="owner_id" value="${ USERINFO.user_id }" />
 				<label style="padding: 5px; width: 100%;" >${ USERINFO.user_name }</label>
 				<input style="font-size: 2em;" placeholder="Title:" />
-				<input type="file" value="your pics"/>
+				<input type="file" value="your pics"name="post_pics"/>
 				<textarea rows="3" placeholder="Your text here" ></textarea>
-				<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
+				<input placeholder="tags : #tag1 #tag2" name="post_tags"/>
 				<div class="close-btn" style="float: left;">
 					<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
 					<input type="reset" class="back-btn" value=""/>
@@ -449,26 +462,27 @@
 <!--
 	作者：940788048@qq.com
 	时间：2015-05-16
-	描述：
+	描述：发视频
 -->
 		<div class="post-dialog hidden" id="postVideo">
 			<img class="user-face" src="${ USERINFO.user_face }"/>
-			<form id="videoForm" class="textForm">
+			<form id="videoForm" class="post-Form" action="" method="get">
+				<input type="hidden" name="owner_id" value="${ USERINFO.user_id }" />
 				<label style="padding: 5px;  width: 100%;" >${ USERINFO.user_name }</label>
-				<input style="font-size: 2em;" placeholder="Title:" />
-				<input placeholder="videoWebPath:" />
-				<textarea rows="3" placeholder="Your text here" ></textarea>
-				<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
+				<input style="font-size: 2em;" placeholder="Title:" name="post_title"/>
+				<input placeholder="videoWebPath:" name="post_url"/>
+				<textarea rows="3" placeholder="Your text here" name="post_content"></textarea>
+				<input placeholder="tags : #tag1 #tag2" name="post_tags"/>
 				<div class="close-btn" style="float: left;">
 					<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
 					<input type="reset" class="back-btn" value=""/>
 				</div>
 				<div class="submit-btn" style="float: right;">
 					<a class="mdi-content-send" style="font-size: 1.6em; color: #0066FF;"></a>
-					<input type="submit" class="back-btn" value="" />
+					<input type="" class="back-btn" value="" />
 				</div>
 			</form>
-		</div>
+		</div> --%>
 
 
 <!-- 用户界面弹窗 -->
@@ -529,8 +543,8 @@
 						<br>
 
 					</div>
-<!-- 左边的post页面 -->
-					<div class="user-post">
+<!-- 左边的post页面  注释掉的是测试样式-->
+<%-- 				<div class="user-post">
 						<div class="user-face ">
 							<img src="userfaces/jianeite.png" />
 						</div>
@@ -546,7 +560,8 @@
 								<label class="mdi-action-favorite" id="like" ></label>
 							</div>
 						</div>
-					</div>
+					</div> --%>
+
 
 					<c:forEach var="friendsPosts" items="${ FRIENDS_POSTS_LIST }">
 						<div class="user-post">
@@ -556,11 +571,14 @@
 							<div class="user-news">
 								<div class="user-name">${ friendsPosts.ownerInfo.user_name }</div>
 								<div class="post-content">
-									<img src="${ friendsPosts.post_pics }" />
+									<c:if test="${ not empty friendsPosts.post_pics  }">
+										<img src="${ friendsPosts.post_pics }" />
+									</c:if>
 									<div id="post-content"></div>
 									<div id="post-video"></div>
 								</div>
-								<div class="post-title">${ friendsPosts.post_title } { ${ friendsPosts.post_tags }}</div>
+								<div class="post-title">Title：${ friendsPosts.post_title } { ${ friendsPosts.post_tags }}</div>
+								<textarea readonly >${ friendsPosts.post_content }</textarea>
 								<div class="post-footer">
 									<label class="notes">notes</label>
 									<label class="repost" ></label>
@@ -576,7 +594,7 @@
 		<script src="dist/js/jquery-2.1.3.min.js"></script>
 		<script>
 			$(document).ready(function() {
-
+				
 				//点击其他地方弹窗消失（实现了一半,不信你点导航栏!）
 				$(".container, .logo-search-bar").click(function(){
 					$(".bubble").hide();
@@ -616,11 +634,12 @@
 				});
 				//回车进行搜索
 				$("body").keydown(function() {
-		            if (event.keyCode == "13") {//keyCode=13是回车键
-		            	var point = $(".point").val();
-		            	//alert(point);
-		            	location.href = "Search.jsp?point="+point;
-		            }
+					var point = $(".point").val();
+					if (point != "") {
+			            if (event.keyCode == "13" ) {//keyCode=13是回车键
+			            	location.href = "Search.jsp?point="+point;
+			            }
+					}
 		        });
 				//退出
 				$(".signout-button").click(function() {
@@ -634,21 +653,48 @@
 					
 				});
 //				打开post窗口
-				$('label').click(function() {
+				$('.post-bubble label').click(function() {
+					$("#input-pics, #input-url, #input-content").show();
 					var dialog = $(this).attr('for');
 					$(".post-bubble").hide();
 					$(".overlay").removeClass("hidden");
 					if (dialog == "postText") {
-						$("#postText").removeClass("hidden");
+						$(".post-dialog").removeClass("hidden");
+						$("#input-pics, #input-url").hide();
 					} else if (dialog == "postPic") {
-						$("#postPic").removeClass("hidden");
+						$(".post-dialog").removeClass("hidden");
+						$("#input-url").hide();
 					} else if (dialog == "postVideo") {
-						$("#postVideo").removeClass("hidden");
+						$(".post-dialog").removeClass("hidden");
+						$("#input-pics").hide();
 					}
 				});
 //				关闭post窗口
-				$(".close-btn , .overlay").click(function() {
+				$(".close-btn , .overlay").click(function closeDialog() {
 					$(".overlay, .post-dialog").addClass("hidden");
+					$(".submit-btn").children("a").attr("class","mdi-content-send");
+					$(".submit-btn").children("a").css("font-size","2em");
+				});
+//				发表按钮
+				$(".submit-btn").click(function(){
+					var owner_id = $("#owner_id").val();
+					var post_title = $("#post_title").val();
+					var post_pics = $("#post_pics").val();
+					var post_url = $("#post_url").val();
+					var post_content = $("#post_content").val();
+					var post_tags = $("#post_tags").val();
+					var url = "./PostServlet?owner_id="+owner_id
+							+"&post_title="+post_title
+							+"&post_pics="+post_pics+"&post_url="+post_url
+							+"&post_content="+post_content+"&post_tags="+post_tags;
+					$.get(url, function(data,status){
+					    if (data == "true") {
+					    	$(".submit-btn").children("a").attr("class","mdi-action-verified-user"); 
+					    	$(".submit-btn").children("a").animate({fontSize: "4em"}, "slow", function() {
+					    		 $(".close-btn").click();
+					    	 });
+					    }
+					  });
 				});
 			});
 		</script>

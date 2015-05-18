@@ -1,17 +1,11 @@
 package test;
 
-import dao.UserInfoDAO;
-import servlet.CheckLoginServlt;
 import bean.PlayerInfo;
 import bean.PostInfo;
-import bean.UserInfo;
-import biz.AdminInfoBiz;
 import biz.PlayerInfoBiz;
 import biz.PostInfoBiz;
-import biz.RecordsInfoBiz;
-import biz.UserInfoBiz;
-
-
+import dao.PlayersInfoDAO;
+import dao.UserInfoDAO;
 
 public class test {
 	public static void main(String[] args) {
@@ -27,12 +21,12 @@ public class test {
 //		System.out.println(new UserInfoBiz().checkLogin(userInfo).getUser_follwedNUm());
 //		System.out.println(new UserInfoBiz().checkLogin(userInfo).getUser_id());
 		
-//		System.out.println(new PostInfoBiz().findFriendsPostsById(1).get(0).getOwnerInfo().getUser_name());
+//		System.out.println(new PlayersInfoDAO().findPlayerInfoByName("Michael Jeffrey Jordan"));
 		
 //		System.out.println(new UserInfoDAO().findFollowed(1));
 		
 //		for (PlayerInfo info : new PlayerInfoBiz().findPlayerInfoByPoint("")) {
-//			
+			
 //			System.out.print(info.getPlayer_country());
 //			System.out.print(info.getPlayer_name());
 //			System.out.print(info.getUser_pro());
@@ -41,11 +35,12 @@ public class test {
 //			System.out.println();
 //		}
 		
-		for (PostInfo info : new PostInfoBiz().findPostsInfoByPoint("")) {
+		for (PostInfo info : new PostInfoBiz().findPostsInfoByPoint("感谢")) {
 		
 			System.out.print(info.getPost_date());
 			System.out.print(info.getPost_pics());
 			System.out.println();
 		}
+		
 	}
 }

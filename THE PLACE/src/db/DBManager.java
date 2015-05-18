@@ -27,6 +27,7 @@ public class DBManager {
 		try {
 			connection = DriverManager.getConnection(URL, USER_NAME, USER_PASSWORD);
 		} catch (SQLException e) {
+			System.out.println("MySQL服务是不是没有启动？导致无法连接...");
 			System.out.println(e.getMessage());
 		}
 		return connection;

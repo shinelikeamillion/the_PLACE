@@ -40,10 +40,11 @@ public class PlayersInfoDAO {
 	public PlayerInfo findPlayerInfoByName (String name) {
 		PlayerInfo playerInfo = new PlayerInfo();
 		connection = DBManager.getconConnection();
-		String sql = "select * from the_place.players where player_name="+name;
+		String sql = "select * from the_place.players where player_name=?";
 		
 		try {
 			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, name);
 			resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				playerInfo.setPlayer_id(resultSet.getInt(1));

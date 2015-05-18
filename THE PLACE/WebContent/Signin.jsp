@@ -10,7 +10,7 @@
 		if(request.getParameter("erroMsg").equals("1")) {
 			pageContext.setAttribute("erroMsg", "还没有注册？或者输入有错误..");
 		} else if (request.getParameter("erroMsg").equals("2")) {
-			pageContext.setAttribute("erroMsg", "注册后才可以有自己的Blog哦..");
+			pageContext.setAttribute("erroMsg", "注册后才可以访问自己的Blog哦..");
 		}
 	}
 %>
@@ -135,8 +135,9 @@
 			}
 		</style>
 	</head>
-
-	<body>
+	
+<!-- 输入框自动获取焦点 -->
+	<body onLoad="document.forms.SignInForm.email.focus()">
 		<div>
 				<div class="header-bar">
 					<div>logo</div>
@@ -156,7 +157,7 @@
 						</c:otherwise>
 					</c:choose>
 					
-					<form id="SignInForm" action="./CheckLoginServlt" method="post">
+					<form id="SignInForm" action="./CheckLoginServlt" method="post" name="SignInForm">
 						<label id="erroMsg">${ erroMsg }</label>
 						<label class="hidden-label" for="Email" >Email</label>
 						<input type="email" id="Email" name="email" placeholder="Email" value="${ USERINFO.user_email }" />
@@ -180,7 +181,6 @@
 	<script charset="utf-8">
 		$(document).ready(function(){
 			$(".submit-btn").click(function(){
-				
 				if($("#Email").val() == "" || $("#Passwd").val()==""){
 					$("#erroMsg").html("内容填写完整才能登录成功哦~");
 					/* 晃动表单 */
