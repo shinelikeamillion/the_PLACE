@@ -129,6 +129,8 @@ body a {
 .post-pic {
 	width: 100%;
 	border-radius: 3px;
+	min-height: 100px;
+	max-height: 200px;
 }
 
 .user-info {
@@ -174,6 +176,92 @@ body a {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+/* 用户弹窗  */
+.face-bubble {
+	display: none;
+	position: absolute;
+	width: 300px;
+	height: 180px;
+	color: #9E9E9E;
+	background-color: #ffffff;
+	top: 66px;
+	right: 20px;
+	z-index: 9;
+}
+
+.face-bubble:before {
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 0 10px 10px 10px;
+	border-color: transparent transparent #ffffff;
+	display: block;
+	width: 0;
+	z-index: 1;
+	left: 258px;
+	top: -9px;
+}
+
+.user-profile {
+	padding: 20px;
+}
+
+.face-icon {
+	width: 90px;
+	height: 90px;
+	float: left;
+}
+
+.face-icon img {
+	width: 100%;
+	height: 100%;
+}
+
+.change-face {
+	top: 92px;
+	width: 90px;
+	color: #ffffff;
+	font-size: 13px;
+	font-weight: 600;
+	text-align: center;
+	background-color: rgba(78, 144, 254, .7);
+	position: absolute;
+	cursor: pointer;
+}
+
+.name-email {
+	float: left;
+	margin-left: 20px;
+	font-size: 15px;
+}
+
+.signout-button {
+	width: 100%;
+	height: 50px;
+	background-color: #BBDEFB;
+	bottom: 0px;
+	position: absolute;
+	text-align: right;
+}
+
+.signout-button .btn {
+	top: -10px;
+	height: 50px;
+	font-size: 18px;
+}
+
+.profile-link {
+	color: #ffffff;
+	background-color: rgba(78, 144, 254, .7);
+	width: 90px;
+	height: 20px;
+	padding: .5em;
+	margin-top: 17px;
+	margin-left: 35px;
+	position: absolute;
+	cursor: pointer;
+}
 </style>
 </head>
 
@@ -202,11 +290,32 @@ body a {
 				<a class="mdi-action-receipt" href="Knowlage&Culture.html"></a>
 			</div>
 			<div class="">
-				<a class="mdi-action-explore select" href="Search.html"></a>
+				<a class="mdi-action-explore select" href="Search.jsp?point="></a>
+			</div>
+			<div class="">
+				<a class="mdi-communication-textsms" href="Chat.jsp"></a>
+			</div>
+			<div class="">
+				<a class="mdi-social-notifications-paused" href="#"></a>
 			</div>
 			<div class="bubble-btn">
 				<a class="mdi-action-account-circle" id="face-btn"></a>
 			</div>
+		</div>
+	</div>
+	<!-- 用户界面弹窗 -->
+	<div class="face-bubble shadow-z-4 bubble">
+		<div class="user-profile">
+			<div class="face-icon">
+				<img src="${ USERINFO.user_face }" /> <span class="change-face">Change-face</span>
+			</div>
+			<div class="name-email">
+				<span>${ USERINFO.user_name }</span> <br> <span>${ USERINFO.user_email }</span>
+				<br> <a class="profile-link">View profile</a>
+			</div>
+		</div>
+		<div class="signout-button">
+			<input type="button" class="btn btn-default" value="SignOut" />
 		</div>
 	</div>
 
@@ -227,20 +336,26 @@ body a {
 							<!-- <a class="follow" >Follow Me</a> -->
 
 							<c:set var="user_id" value="${ post.owner_id }"></c:set>
-							<c:forEach var="friendId" items="${ USERINFO.friendsId }">
-								<c:if test="${ user_id eq friendId }">
-									<a class="follow" style="color: yellow" id="${ user_id }">Following</a>
+							<c:if test="${ USERINFO.user_id eq user_id }">
+								<div class="follow" style="color: red">Myself</div>
+							</c:if>
+							<c:if test="${ USERINFO.user_id ne user_id }">
+								<c:if test="${ not empty USERINFO.friendsId }">
+									<c:forEach var="friendId" items="${ USERINFO.friendsId }">
+										<c:if test="${ user_id eq friendId }">
+											<a class="follow" style="color: yellow" id="${ user_id }">Following</a>
+										</c:if>
+										<c:if test="${ user_id ne friendId }">
+											<c:if test="${ USERINFO.user_id ne user_id }">
+												<a class="follow" id="${ user_id }">Follow Me</a>
+											</c:if>
+										</c:if>
+									</c:forEach>
 								</c:if>
-								<c:if test="${ user_id ne friendId }">
-									<c:if test="${ USERINFO.user_id eq user_id }">
-										<div class="follow" style="color: red">Myself</div>
-									</c:if>
-									<c:if test="${ USERINFO.user_id ne user_id }">
-										<a class="follow" id="${ user_id }">Follow Me</a>
-									</c:if>
+								<c:if test="${ empty USERINFO.friendsId }">
+									<a class="follow" id="${ user_id }">Follow Me</a>
 								</c:if>
-							</c:forEach>
-
+							</c:if>
 						</div>
 						<img class="post-pic" src="${ post.post_pics }" />
 						<div class="post-title">Title：${ post.post_title }</div>
@@ -272,38 +387,60 @@ body a {
 	</div>
 	<script src="dist/js/jquery-2.1.3.min.js"></script>
 	<script>
-		$(document).ready(function() {
-			//对搜索动画的操作
-			$(".search input").focus(function() {
-				$(this).animate({
-					height : "50px"
-				}, 'slow');
-			});
-			$(".search input").blur(function() {
-				$(this).animate({
-					height : "30px"
-				}, 'slow');
-			});
+		$(document).ready(
+				function() {
+					//对face-bubble的操作
+					$("#face-btn").click(function() {
+						$(".post-bubble").hide();
+						if ($(".face-bubble").is(":hidden")) {
+							$(".face-bubble").fadeIn();
+						} else {
+							$(".face-bubble").fadeOut();
+						}
+					});
+					//退出
+					$(".signout-button").click(function() {
+						$.get("./Logout", null, function() {
+							window.location.reload();
+						});
+					});
+					//对搜索动画的操作
+					$(".search input").focus(function() {
+						$(this).animate({
+							height : "50px"
+						}, 'slow');
+					});
+					$(".search input").blur(function() {
+						$(this).animate({
+							height : "30px"
+						}, 'slow');
+					});
 
-			//回车进行搜索
-			$("body").keydown(function() {
-				var point = $(".point").val();
-				if ($(".point").focus()) {
-					if (event.keyCode == "13") {//keyCode=13是回车键
-						location.href = "Search.jsp?point=" + point;
-					}
-				}
-			});
+					//回车进行搜索
+					$("body").keydown(function() {
+						var point = $(".point").val();
+						if ($(".point").focus()) {
+							if (event.keyCode == "13") {//keyCode=13是回车键
+								location.href = "Search.jsp?point=" + point;
+							}
+						}
+					});
 
-			//follow
-			$(".follow").click(function() {
-				var friend_id =  $(this).attr("id");
-				var url = "./FollowServlet?friend_id="+friend_id;
-				$.get(url, function(data, status) {
-					window.location.reload();
+					//follow
+					$(".follow").click(
+							function() {
+								var friend_id = $(this).attr("id");
+								var status = $(this).html();
+								if (status != "Myself") {
+									var url = "./FollowServlet?friend_id="
+											+ friend_id + "&status=" + status;
+									$.get(url, function(data, status) {
+										window.location.reload();
+									});
+								}
+							});
+
 				});
-			});
-		});
 	</script>
 
 </body>

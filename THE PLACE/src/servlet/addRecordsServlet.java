@@ -23,7 +23,7 @@ public class addRecordsServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8"); 
 		
 		recordsInfo.setRecord_date(request.getParameter("record_date"));
-		recordsInfo.setRecord(new String(request.getParameter("record").getBytes("ISO-8859-1"), "utf-8"));
+		recordsInfo.setRecord(request.getParameter("record"));
 		recordsInfo.setRecord_url(request.getParameter("record_url"));
 		
 		recordsInfoBiz.addRecords(recordsInfo);

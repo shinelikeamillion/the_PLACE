@@ -4,7 +4,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html>
-
+<%
+	int id;
+	PostInfoBiz postInfoBiz = new PostInfoBiz();
+	
+	if (session.getAttribute("ADMININFO") == null) {
+		//response.sendRedirect("../Signin.jsp?error=2");
+	}
+	if (request.getParameter("point") != null) {
+		String point = request.getParameter("point");
+		pageContext.setAttribute("ALLPOSTS", postInfoBiz.adminFindPostsInfoByPoint(point));
+		pageContext.setAttribute("POINT", point);
+	} else {
+		pageContext.setAttribute("ALLPOSTS", postInfoBiz.adminFindPostsInfoByPoint("%%"));
+	}
+%>
 	<head>
 		<meta charset="utf-8">
 		<title>管理帖子</title>
@@ -111,7 +125,7 @@
 				<!--弹出框-->
 				<div class="dialog">
 					<div class="dialog-content">
-						<h3>添加记录</h3>
+						<h3>发表推文</h3>
 						<div>
 							<form action="" method="get">
 								<input type="date" id="date" name="recore_date" placeholder="Recore-date:">
@@ -130,21 +144,20 @@
 
 			<div class="main">
 				<!--右侧内容-->
-				<div class="cont">
+				<div class="cont" >
 					<div class="title">管理推文</div>
 					<div class="details">
 						<div class="details_operation clearfix">
 							<div class="bui_select">
-								<input type="button" value="添&nbsp;&nbsp;加" class="add">
 							</div>
 							<div class="fr">
 								<div class="text">
 									<span>帖子标题：</span>
 									<div class="bui_select">
 										<select name="" id="" class="select">
-											<option value="1">测试内容</option>
-											<option value="1">测试内容</option>
-											<option value="1">测试内容</option>
+											<c:forEach var="postInfo" items="${ ALLPOSTS }">
+												<option value="1">${ postInfo.ownerInfo.user_name }</option>
+											</c:forEach>
 										</select>
 									</div>
 								</div>
@@ -152,9 +165,9 @@
 									<span>发表时间：</span>
 									<div class="bui_select">
 										<select name="" id="" class="select">
-											<option value="1">测试内容</option>
-											<option value="1">测试内容</option>
-											<option value="1">测试内容</option>
+											<c:forEach var="postInfo" items="${ ALLPOSTS }">
+												<option value="1">${ postInfo.post_date }</option>
+											</c:forEach>
 										</select>
 									</div>
 								</div>
@@ -165,127 +178,39 @@
 							</div>
 						</div>
 						<!--表格-->
-						<table class="table" cellspacing="0" cellpadding="0">
+						<div  style="overflow-y: auto; max-height: 480px;">
+						<table class="table" >
 							<thead>
 								<tr>
-									<th width="15%">编号</th>
-									<th width="25%">标题</th>
-									<th width="35%">来源</th>
+									<th width="7%">编号</th>
+									<th width="20%">标题</th>
+									<th width="48%">内容</th>
 									<th>操作</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<!--这里的id和for里面的c1 需要循环出来-->
-									<td>
-										<input type="checkbox" id="c1" class="check">
-										<label for="c1" class="label">001</label>
-									</td>
-									<td>后台设计</td>
-									<td>测试内容</td>
-									<td align="center">
-										<input type="button" value="修改" class="btn update">
-										<input type="button" value="删除" class="btn">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<input type="checkbox" id="c2" class="check">
-										<label for="c2" class="label">001</label>
-									</td>
-									<td>后台设计</td>
-									<td>测试内容</td>
-									<td align="center">
-										<input type="button" value="修改" class="btn">
-										<input type="button" value="删除" class="btn">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<input type="checkbox" id="c3" class="check">
-										<label for="c3" class="label">001</label>
-									</td>
-									<td>后台设计</td>
-									<td>测试内容</td>
-									<td align="center">
-										<input type="button" value="修改" class="btn">
-										<input type="button" value="删除" class="btn">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<input type="checkbox" id="c4" class="check">
-										<label for="c4" class="label">001</label>
-									</td>
-									<td>后台设计</td>
-									<td>测试内容</td>
-									<td align="center">
-										<input type="button" value="修改" class="btn">
-										<input type="button" value="删除" class="btn">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<input type="checkbox" id="c5" class="check">
-										<label for="c5" class="label">001</label>
-									</td>
-									<td>后台设计</td>
-									<td>测试内容</td>
-									<td align="center">
-										<input type="button" value="修改" class="btn">
-										<input type="button" value="删除" class="btn">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<input type="checkbox" id="c6" class="check">
-										<label for="c6" class="label">001</label>
-									</td>
-									<td>后台设计</td>
-									<td>测试内容</td>
-									<td align="center">
-										<input type="button" value="修改" class="btn">
-										<input type="button" value="删除" class="btn">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<input type="checkbox" id="c7" class="check">
-										<label for="c7" class="label">001</label>
-									</td>
-									<td>后台设计</td>
-									<td>测试内容</td>
-									<td align="center">
-										<input type="button" value="修改" class="btn">
-										<input type="button" value="删除" class="btn">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<input type="checkbox" id="c8" class="check">
-										<label for="c8" class="label">001</label>
-									</td>
-									<td>后台设计</td>
-									<td>测试内容</td>
-									<td align="center">
-										<input type="button" value="修改" class="btn">
-										<input type="button" value="删除" class="btn">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<input type="checkbox" id="c9" class="check">
-										<label for="c9" class="label">001</label>
-									</td>
-									<td>后台设计</td>
-									<td>测试内容</td>
-									<td align="center">
-										<input type="button" value="修改" class="btn">
-										<input type="button" value="删除" class="btn">
-									</td>
-								</tr>
+								<c:forEach var="postInfo" items="${ ALLPOSTS }" varStatus="status">
+									<tr class="postInfo-row${ status.index }">
+										<td>
+											<input type="checkbox" id="${ status.index }" class="check">
+											<label for="${ status.index }" class="label">${ status.count }</label>
+										</td>
+										<td>${ postInfo.post_title }</td>
+										<td>${ postInfo.post_content }</td>
+										<td align="center">
+											<input type="button" value="查看" class="btn update">
+											<c:if test="${  postInfo.post_status == 0 }">
+												<input type="button" value="屏蔽" class="btn block-btn" id="${ postInfo.post_id }">
+											</c:if>
+											<c:if test="${  postInfo.post_status == 1 }">
+												<input type="button" value="解除屏蔽" class="btn unBlock-btn" id="${  postInfo.post_id }">
+											</c:if>
+										</td>
+									</tr>
+								</c:forEach>
 							</tbody>
 						</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -294,6 +219,7 @@
 				<div class="cont">
 					<div class="title">管理员</div>
 					<ul class="mList">
+						<li><h3></h3></li>
 						<li>
 						<h3><span>+</span>用户 </h3>
 						<dl>
@@ -320,12 +246,12 @@
 			//打开添加的悬浮框
 			$(".add").click(function() {
 				$(".dialog-content > h3").html("添加记录");
-				$("#submit").val("添加");
+				$("#submit").show();
 				$(".overlay,.dialog").addClass("show");
 			});
 			$(".update").click(function() {
-				$(".dialog-content > h3").html("修改记录");
-				$("#submit").val("修改");
+				$(".dialog-content > h3").html("详细信息");
+				$("#submit").hide();
 				$(".overlay,.dialog").addClass("show");
 			});
 			//关闭悬浮框
@@ -336,6 +262,22 @@
 			//菜单想的展开和收起
 			$("li > h3").click(function() {
 				$(this).siblings().toggle(600);
+			});
+			
+			//屏蔽推文
+			$(".block-btn, .unBlock-btn").click(function() {
+				var postId = $(this).attr("id");
+				var url = "../BlockPostServlet?postId="+parseInt(postId)+"&isBlock=true";				
+				if ($(this).hasClass("block-btn")) {
+					$.get(url,function(data,status){
+						window.location.reload();
+					});
+				} else {
+					url = "../BlockPostServlet?postId="+parseInt(postId)+"&isBlock=false";
+					$.get(url,function(data,status){
+						window.location.reload();
+					});
+				}
 			});
 		});
 	</script>

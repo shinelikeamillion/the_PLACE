@@ -14,6 +14,7 @@ public class PostInfo {
 	private Integer post_comment;
 	private Integer post_type;
 	private UserInfo ownerInfo;
+	private Integer post_status;
 	
 	public UserInfo getOwnerInfo() {
 		return ownerInfo;
@@ -92,6 +93,12 @@ public class PostInfo {
 	}
 	public void setPost_type(Integer post_type) {
 		this.post_type = post_type;
+	}
+	public Integer getPost_status() {
+		return post_status;
+	}
+	public void setPost_status(Integer post_status) {
+		this.post_status = post_status;
 	}
 	
 	

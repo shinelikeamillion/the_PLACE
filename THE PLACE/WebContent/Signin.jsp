@@ -10,7 +10,7 @@
 		if(request.getParameter("erroMsg").equals("1")) {
 			pageContext.setAttribute("erroMsg", "还没有注册？或者输入有错误..");
 		} else if (request.getParameter("erroMsg").equals("2")) {
-			pageContext.setAttribute("erroMsg", "登录后才可以访问自己的Blog哦..");
+			pageContext.setAttribute("erroMsg", "这些内容要先登录才能访问哦..");
 		} else if (request.getParameter("erroMsg").equals("3")) {
 			pageContext.setAttribute("erroMsg", "此帐户已经被列入黑名单..");
 		} 
@@ -142,7 +142,7 @@
 	<body onLoad="document.forms.SignInForm.email.focus()">
 		<div>
 				<div class="header-bar">
-					<div>logo</div>
+					<div>the</div><div>PLACE</div>
 				</div>
 				<div class="banner">
 					<h1>One account.All for love.</h1>
@@ -202,7 +202,6 @@
 			//回车键提交表单
 			$("body").keydown(function() {
 	             if (event.keyCode == "13") {//keyCode=13是回车键
-	            	 alert("denglu");
 	            	 $("#SignInForm").submit();
 	             }
 	         });

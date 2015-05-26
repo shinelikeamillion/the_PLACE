@@ -27,9 +27,15 @@
 	overflow: hidden;
 }
 
+.logo {
+	width: 50px;
+	float: left;
+}
+
 a {
 	text-decoration: none;
 }
+
 .main-header {
 	top: 0;
 	width: 100%;
@@ -161,13 +167,14 @@ button {
 <body>
 	<div class="main">
 		<div class="main-header">
+			<img class="logo" src="images/logo.png" />
 			<nav class="nav">
 				<a class="nav-item" id="hot-news" href="">HotNews</a> <a
 					class="nav-item" id="culture" href="Knowlage&Culture.html">Knowledge&amp;Culture</a>
 				<a class="nav-item" id="stars" href="Stars.html"
 					style="color: #ffffff;">Stars</a> <a class="nav-item" id="records"
-					href="Records.jsp">Records</a>
-					<a class="nav-item" id="blog" href="index.jsp">Blog</a>
+					href="Records.jsp">Records</a> <a class="nav-item" id="blog"
+					href="index.jsp">Blog</a>
 			</nav>
 		</div>
 
@@ -193,35 +200,43 @@ button {
                 	描述：左边的球星卡部分
                 -->
 			<div class="flip Y">
-				<div class="front" style="background: url(${ playerInfo.player_face });"></div>
+				<div class="front"
+					style="background: url(${ playerInfo.player_face });"></div>
 				<div class="back">
 					<table>
 						<tr>
-							<th colspan="2"><c:out value="${ playerInfo.player_name }" default="Michael Jeffrey Jordan"/></th>
+							<th colspan="2"><c:out value="${ playerInfo.player_name }"
+									default="Michael Jeffrey Jordan" /></th>
 						</tr>
 						<tr>
 							<td>国 籍:</td>
-							<td><c:out value="${ playerInfo.player_country }" default="美 国--纽约市布鲁克林区"/></td>
+							<td><c:out value="${ playerInfo.player_country }"
+									default="美 国--纽约市布鲁克林区" /></td>
 						</tr>
 						<tr>
 							<td>身高:</td>
-							<td><c:out value="${ playerInfo.player_height }" default="198.0"/>cm</td>
+							<td><c:out value="${ playerInfo.player_height }"
+									default="198.0" />cm</td>
 						</tr>
 						<tr>
 							<td>体重:</td>
-							<td><c:out value="${ playerInfo.player_weight }" default="98.1"/>KG</td>
+							<td><c:out value="${ playerInfo.player_weight }"
+									default="98.1" />KG</td>
 						</tr>
 						<tr>
 							<td>球队:</td>
-							<td><c:out value="${ playerInfo.player_team }" default="芝加哥公牛（1984-1998），华盛顿奇才（2001-2003）"/></td>
+							<td><c:out value="${ playerInfo.player_team }"
+									default="芝加哥公牛（1984-1998），华盛顿奇才（2001-2003）" /></td>
 						</tr>
 						<tr>
 							<td>特点:</td>
-							<td><c:out value="${ playerInfo.player_specialty }" default="得分、防守、领导力超强"/></td>
+							<td><c:out value="${ playerInfo.player_specialty }"
+									default="得分、防守、领导力超强" /></td>
 						</tr>
 						<tr>
 							<td>生涯:</td>
-							<td><c:out value="${ playerInfo.player_prefession }" default="6次NBA总冠军 2次奥运会冠军 3次NBA全明星MVP 5次常规赛MVP 6次总决赛MVP"/></td>
+							<td><c:out value="${ playerInfo.player_prefession }"
+									default="6次NBA总冠军 2次奥运会冠军 3次NBA全明星MVP 5次常规赛MVP 6次总决赛MVP" /></td>
 						</tr>
 					</table>
 				</div>
@@ -234,32 +249,39 @@ button {
                 -->
 			<div class="right">
 				<c:forEach var="names" items="${ playerNames }">
-					<button class="stars-btn" ><c:out value="${ names }"></c:out></button>
+					<button class="stars-btn">
+						<c:out value="${ names }"></c:out>
+					</button>
 				</c:forEach>
 			</div>
 		</div>
 
 		<footer class=" col-sm-12 blog-footer">
 			<p>
-				Blog template built for <a href="#">the PLACE</a> by <a href="#">@liufei</a>.
+				<a href="#"></a>.
 			</p>
 			<p>
-				<a href="#">Back to top</a>
+				<a href="#">the PLACE</a> by <a href="#">@liufei</a>.
 			</p>
 		</footer>
 	</div>
 	<script src="dist/js/jquery-2.1.3.min.js"></script>
 	<script>
-		$(document).ready(function() {
-			
-			$(".stars-btn").click(function(){
-				
-				var url = "./findPlayerByNameServlet?playerName="+$(this).html();
-				$.get(url,function() {
-					window.location.reload();
-				});
-			});
-		}); 
+		$(document)
+				.ready(
+						function() {
+
+							$(".stars-btn")
+									.click(
+											function() {
+
+												var url = "./findPlayerByNameServlet?playerName="
+														+ $(this).html();
+												$.get(url, function() {
+													window.location.reload();
+												});
+											});
+						});
 	</script>
 </body>
 

@@ -167,7 +167,8 @@
 						</div>
 					</div>
 					<!--表格-->
-					<table class="table" cellspacing="0" cellpadding="0">
+					<div  style="overflow-y: auto; max-height: 480px;">
+					<table class="table">
 						<thead>
 							<tr>
 								<th width="5%">编号</th>
@@ -187,13 +188,15 @@
 									<td>${ records.record_date }</td>
 									<td>${ records.record }</td>
 									<td hidden="true">${ records.record_url }</td>
-									<td align="center"><input type="button" value="修改"
-										class="btn update" id="records${ status.index }"> <input type="button" value="删除"
-										class="btn"></td>
+									<td align="center">
+										<input type="button" value="修改" class="btn update" id="records${ status.index }"/> 
+										<input type="button" value="回收" class="btn takeBack-btn"/>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -260,6 +263,15 @@
             	location.href = "RecordsManagement.jsp?point="+point;
             }
         });
+		$(".takeBack-btn, .release-btn").click(function(){
+			if($(this).val() == "回收"){
+				$(this).removeClass("takeBack-btn").addClass("release-btn");
+				$(this).val("发布");
+			} else {
+				$(this).removeClass("release-btn").addClass("takeBack-btn");
+				$(this).val("回收");
+			}
+		});
 	});
 </script>
 

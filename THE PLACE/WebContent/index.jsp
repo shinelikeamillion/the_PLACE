@@ -361,6 +361,13 @@
 				opacity: 0;
 				visibility: hidden;
 			}
+			.like {
+				color : #F44336;
+			}
+			#post-video embed{
+				width: 100%;
+				height: 350px;
+			}
 			
 		</style>
 	</head>
@@ -392,6 +399,9 @@
 				</div>
 				<div class="">
 					<a class="mdi-action-explore" href="Search.jsp?point="></a>
+				</div>
+				<div class="">
+					<a class="mdi-communication-textsms" href="Chat.jsp"></a>
 				</div>
 				<div class="">
 					<a class="mdi-social-notifications-paused" href="#"></a>
@@ -505,10 +515,10 @@
 				<input type="button" class="btn btn-default" value="SignOut" />
 			</div>
 		</div>
+<!-- 右边的板块 -->
 		<div class="container">
 			<div class="discover-posts">
 				<div class="posts-hoder">
-<!-- 右边的板块 -->
 					<div class="right-banner">
 						<strong>Userinfomation:</strong>
 						<hr>
@@ -567,6 +577,8 @@
 
 
 					<c:forEach var="friendsPosts" items="${ FRIENDS_POSTS_LIST }">
+						
+						<c:if test="${ friendsPosts.post_status == 0 }">
 						<div class="user-post">
 							<div class="user-face ">
 								<img src="${ friendsPosts.ownerInfo.user_face }" />
@@ -578,19 +590,21 @@
 										<img src="${ friendsPosts.post_pics }" />
 									</c:if>
 									<div id="post-content"></div>
-									<div id="post-video"></div>
+									<c:if test="${ not empty friendsPosts.post_video  }">
+										<div id="post-video">${ friendsPosts.post_video  }</div>
+									</c:if>
 								</div>
 								<div class="post-title">Title：${ friendsPosts.post_title } { ${ friendsPosts.post_tags }}</div>
 								<textarea readonly >${ friendsPosts.post_content }</textarea>
 								<div class="post-footer">
 									<label class="notes">notes</label>
 									<label class="repost" ></label>
-									<label class="mdi-action-favorite" id="like" >${ friendsPosts.post_liked }</label>
+									<label class="mdi-action-favorite" id="like">${ friendsPosts.post_liked }</label>
 								</div>
 							</div>
 						</div>						
+					</c:if>
 					</c:forEach>				
-
 				</div>
 			</div>
 		</div>
@@ -610,8 +624,7 @@
 				$("label > a").mouseover(function() {
 					$(this).animate({
 						padding: '10px 20px 20px 20px'
-					}, 300);
-					$(this).animate({
+					}, 200).animate({
 						padding: '20px 20px 20px 20px'
 					}, 300);
 				});
@@ -634,16 +647,17 @@
 					$(this).animate({
 						height: "30px"
 					}, 'slow');
-				});
+				}); 
 				//回车进行搜索
 				$("body").keydown(function() {
-					var point = $(".point").val();
-					if ( $(".point").focus() ) {
-			            if (event.keyCode == "13" ) {//keyCode=13是回车键
+					//keyCode=13是回车键,先判断是否是回车键，然后再判断搜索框是否是焦点
+			        if (event.keyCode == "13" ) {
+						if ( $(".point").is(":focus") ) {
+							var point = $(".point").val();
 			            	location.href = "Search.jsp?point="+point;
 			            }
 					}
-		        });
+		        }); 
 				//退出
 				$(".signout-button").click(function() {
 					$.get("./Logout",null,function() {
@@ -652,8 +666,20 @@
 				});
 				//喜欢
 				$(".mdi-action-favorite").click(function() {
-					$(this).css("color","#F44336");
-					
+					if(!$(this).hasClass("like")) {
+						$(this).addClass("like");
+						$(this).html(parseInt($(this).html())+1);
+						//将数据插入数据库
+						
+					} else {
+						$(this).removeClass("like");
+						$(this).html(parseInt($(this).html())-1);
+					}
+				});
+				//查看自己的推文
+				$(".mdi-action-subject").click(function(){
+					var userNmae = $('.name-email span:first-child').html();
+	            	location.href = "Search.jsp?point="+userNmae;
 				});
 //				打开post窗口
 				$('.post-bubble label').click(function() {

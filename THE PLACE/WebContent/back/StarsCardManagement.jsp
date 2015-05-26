@@ -198,7 +198,8 @@
 						</div>
 					</div>
 					<!--表格-->
-					<table class="table" cellspacing="0" cellpadding="0">
+					<div  style="overflow-y: auto; max-height: 480px;">
+					<table class="table">
 						<thead>
 							<tr>
 								<th width="8%">编号</th>
@@ -224,13 +225,15 @@
 									<td hidden="true">${ starInfo.player_team }</td>
 									<td hidden="true">${ starInfo.player_specialty }</td>
 									<td hidden="true">${ starInfo.player_prefession }</td>
-									<td align="center"><input type="button" value="查看"
-										class="btn update" id="starInfo-row${ status.index }" /> <input
-										type="button" value="拉黑" class="btn" /></td>
+									<td align="center">
+										<input type="button" value="查看" class="btn update" id="starInfo-row${ status.index }" />
+										<input type="button" value="回收" class="btn" />
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
+					</div>
 				</div>
 			</div>
 		</div>

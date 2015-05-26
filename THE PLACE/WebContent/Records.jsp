@@ -34,6 +34,11 @@
 	background: #F0F0F0 url('images/dian2.png') repeat-x;
 }
 
+.logo {
+	width: 50px;
+	float: left;
+}
+
 a {
 	text-decoration: none;
 }
@@ -72,13 +77,14 @@ a {
 <body>
 	<div class="page">
 		<div class="header">
+			<a href="Records.jsp"><img class="logo" src="images/logo.png" /></a>
 			<nav class="nav">
 				<a class="nav-item select" id="hot-news" href="">HotNews</a> <a
 					class="nav-item" id="culture" href="Knowlage&Culture.html">Knowledge&amp;Culture</a>
 				<a class="nav-item" id="stars" href="StarsCard.jsp">Stars</a> <a
 					class="nav-item" id="records" href="Records.jsp"
-					style="color: #ffffff;">Records</a>
-					<a class="nav-item" id="blog" href="index.jsp">Blog</a>
+					style="color: #ffffff;">Records</a> <a class="nav-item" id="blog"
+					href="index.jsp">Blog</a>
 			</nav>
 		</div>
 		<div class="box">

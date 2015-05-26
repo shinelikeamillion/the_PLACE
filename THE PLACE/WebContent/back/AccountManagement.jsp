@@ -178,7 +178,8 @@
 						</div>
 					</div>
 					<!--表格-->
-					<table class="table" cellspacing="0" cellpadding="0">
+					<div  style="overflow-y: auto; max-height: 480px;">
+					<table class="table">
 						<thead>
 							<tr>
 								<th width="10%">编号</th>
@@ -214,6 +215,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					</div>
 				</div>
 			</div>
 		</div>

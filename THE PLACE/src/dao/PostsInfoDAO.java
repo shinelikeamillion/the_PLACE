@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.PostInfo;
+import bean.UserInfo;
 import biz.UserInfoBiz;
 import db.DBManager;
 
@@ -18,7 +19,9 @@ public class PostsInfoDAO {
 	
 	public boolean post (PostInfo postInfo) {
 		connection = DBManager.getconConnection();
-		String sql = "insert into the_place.news values (null, ?, ?, ?, ?, ?, ?, NOW())";
+		String sql = "insert into the_place.news "
+				+ "(owner_id, news_title, news_pic, news_video, news_text, news_tags, news_date)"
+				+ "values (?, ?, ?, ?, ?, ?, NOW())";
 		
 		try {
 			preparedStatement = connection.prepareStatement(sql);
@@ -64,6 +67,7 @@ public class PostsInfoDAO {
 				postInfo.setPost_tags(resultSet.getString(7));
 				postInfo.setPost_date(resultSet.getString(8));
 				postInfo.setPost_liked(resultSet.getInt(9));
+				postInfo.setPost_status(resultSet.getInt(10));
 				postInfo.setOwnerInfo(new UserInfoDAO().findUserInfo(id));
 				postsInfoList.add(postInfo);
 			}
@@ -78,13 +82,17 @@ public class PostsInfoDAO {
 
 	// 模糊查询用户的推文
 	public List<PostInfo> findPostsInfoByPoint(String point) {
+		String userName = point;
+		//int ownerId = new UserInfoBiz().findAllUsersInfo(userName).get(0).getUser_id();
 		point = "%"+point+"%";
 		connection = DBManager.getconConnection();
-		String sql = "select * from the_place.news where news_title like ? or news_tags like ? or news_text like ? order by news_date desc";
+		String sql = "select * from the_place.news where news_status = 0 and ( news_title like ? or "
+				+ "news_tags like ? or news_text like ? ) order by news_date desc";
 		List<PostInfo> postsInfoList = new ArrayList<PostInfo>();
 
 		try {
 			preparedStatement = connection.prepareStatement(sql);
+			//preparedStatement.setInt(1, ownerId);
 			preparedStatement.setString(1, point);
 			preparedStatement.setString(2, point);
 			preparedStatement.setString(3, point);
@@ -100,6 +108,7 @@ public class PostsInfoDAO {
 				postInfo.setPost_tags(resultSet.getString(7));
 				postInfo.setPost_date(resultSet.getString(8));
 				postInfo.setPost_liked(resultSet.getInt(9));
+				postInfo.setPost_status(resultSet.getInt(10));
 				postInfo.setOwnerInfo(new UserInfoDAO().findUserInfo(resultSet.getInt(2)));
 				postsInfoList.add(postInfo);
 			}
@@ -111,6 +120,44 @@ public class PostsInfoDAO {
 
 		return postsInfoList;
 	}
+	
+	// 管理员遍历用户的推文
+		public List<PostInfo> adminFindPostsInfoByPoint(String point) {
+			point = "%"+point+"%";
+			connection = DBManager.getconConnection();
+			String sql = "select * from the_place.news where  news_title like ? or "
+					+ "news_tags like ? or news_text like ? order by news_date desc";
+			List<PostInfo> postsInfoList = new ArrayList<PostInfo>();
+
+			try {
+				preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, point);
+				preparedStatement.setString(2, point);
+				preparedStatement.setString(3, point);
+				resultSet = preparedStatement.executeQuery();
+				while (resultSet.next()) {
+					PostInfo postInfo = new PostInfo();
+					postInfo.setPost_id(resultSet.getInt(1));
+					postInfo.setOwner_id(resultSet.getInt(2));
+					postInfo.setPost_title(resultSet.getString(3));
+					postInfo.setPost_pics(resultSet.getString(4));
+					postInfo.setPost_video(resultSet.getString(5));
+					postInfo.setPost_content(resultSet.getString(6));
+					postInfo.setPost_tags(resultSet.getString(7));
+					postInfo.setPost_date(resultSet.getString(8));
+					postInfo.setPost_liked(resultSet.getInt(9));
+					postInfo.setPost_status(resultSet.getInt(10));
+					postInfo.setOwnerInfo(new UserInfoDAO().findUserInfo(resultSet.getInt(2)));
+					postsInfoList.add(postInfo);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBManager.close(connection, preparedStatement, resultSet);
+			}
+
+			return postsInfoList;
+		}
 	
 	// 遍历好友的推文方法有些蠢,不过能用
 	public List<PostInfo> findFriendsPostsInfoById(int id) {
@@ -139,6 +186,7 @@ public class PostsInfoDAO {
 				postInfo.setPost_tags(resultSet.getString(7));
 				postInfo.setPost_date(resultSet.getString(8));
 				postInfo.setPost_liked(resultSet.getInt(9));
+				postInfo.setPost_status(resultSet.getInt(10));
 				postInfo.setOwnerInfo(userInfoBiz.findUserInfo(resultSet.getInt(2)));
 				postsInfoList.add(postInfo);
 			}

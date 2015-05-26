@@ -25,6 +25,7 @@ public class FollowServlet extends HttpServlet {
 		}
 		System.out.println(isFollow);
 		new UserInfoBiz().follow(my_id, friend_id, isFollow);
+		new UserInfoBiz().improveUserInfo((UserInfo)request.getSession().getAttribute("USERINFO"));
 	}
 
 }
