@@ -1,3 +1,4 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" import="java.util.*,java.io.*"
 	pageEncoding="utf-8"%>
 <%@ page import="bean.*, biz.*"%>
@@ -7,15 +8,19 @@
 
 <%
 	if (session.getAttribute("USERINFO") == null) {
-		response.sendRedirect("Signin.jsp?erroMsg=2");
+		//response.sendRedirect("Signin.jsp?erroMsg=2");
 	} else {
 		PostInfoBiz postInfoBiz = new PostInfoBiz();
 		List<UserInfo> users = (ArrayList<UserInfo>)application.getAttribute("USERS");
 		if(users == null){
 	users = new ArrayList<UserInfo>();
 		}
-		users.add( (UserInfo)session.getAttribute("USERINFO") );
-		application.setAttribute("USERS", users);
+		UserInfo userInfo = (UserInfo)session.getAttribute("USERINFO");
+		
+		if (!users.contains(userInfo)) {
+	users.add( userInfo );
+		}
+	application.setAttribute("USERS", users);
 	}
 %>
 
@@ -180,6 +185,36 @@ body a {
 	height: 40px;
 	border-radius: 50%;
 	float: left;
+	border-radius: 50%;
+}
+
+.user_faces {
+	margin-top: 80px;
+}
+
+.users_face {
+	width: 50px;
+	height: 50px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	border-radius: 50%;
+	float: left;
+}
+
+.profile-link {
+	color: #ffffff;
+	background-color: rgba(78, 144, 254, .7);
+	width: 90px;
+	height: 20px;
+	padding: .5em;
+	margin-top: 17px;
+	margin-left: 35px;
+	position: absolute;
+	cursor: pointer;
+}
+
+.select {
+	color: #D84315;
 }
 
 .left .content {
@@ -189,7 +224,7 @@ body a {
 .left input {
 	border: none;
 	width: 90%;
-	background: #00796B;
+	background: #CDDC39;
 	font-size: 18px;
 	padding-left: 20px;
 	font-weight: 300px;
@@ -202,7 +237,6 @@ body a {
 	position: absolute;
 	width: 40%;
 	padding: 10px;
-	top: 60px;
 	right: 0;
 }
 
@@ -239,35 +273,48 @@ body a {
 		</a>
 		<div class="user-bar">
 			<div class="">
-				<a class="mdi-action-polymer select" href="#"></a>
+				<a class="mdi-action-polymer" href="index.jsp" title="主页"></a>
 			</div>
 			<div class="">
-				<a class="mdi-action-receipt" href="Knowlage&Culture.html"></a>
+				<a class="mdi-action-receipt" href="Knowlage&Culture.html"
+					title="更多"></a>
 			</div>
 			<div class="">
-				<a class="mdi-action-explore" href="Search.jsp"></a>
+				<a class="mdi-action-explore" href="Search.jsp?point=" title="搜索"></a>
 			</div>
 			<div class="">
-				<a class="mdi-communication-textsms select" href="Chat.jsp"></a>
+				<a class="mdi-communication-textsms select" href="Chat.jsp"
+					title="聊天"></a>
 			</div>
 			<div class="">
-				<a class="mdi-social-notifications-paused" href="#"></a>
+				<a class="mdi-social-notifications-paused" href="" title="消息"></a>
 			</div>
 			<div class="bubble-btn">
-				<a class="mdi-av-playlist-add" id="post-btn" href="#"></a>
-			</div>
-			<div class="bubble-btn">
-				<a class="mdi-action-account-circle" id="face-btn" href="#"></a>
+				<a class="mdi-action-account-circle" href="" id="face-btn"
+					title="${ USERINFO.user_name }"></a>
 			</div>
 		</div>
 	</div>
-
+	<!-- 用户界面弹窗 -->
+	<div class="face-bubble shadow-z-4 bubble">
+		<div class="user-profile">
+			<div class="face-icon">
+				<img src="${ USERINFO.user_face }" /> <span class="change-face">Change-face</span>
+			</div>
+			<div class="name-email">
+				<span>${ USERINFO.user_name }</span> <br> <span>${ USERINFO.user_email }</span>
+				<br> <a class="profile-link">View profile</a>
+			</div>
+		</div>
+		<div class="signout-button">
+			<input type="button" class="btn btn-default" value="SignOut" />
+		</div>
+	</div>
 	<div class="container">
 		<div class="left posts">
 			<c:forEach var="content" items="${ contentList }">${ content }</c:forEach>
 		</div>
 		<div class="right">
-			<div class="users-face"></div>
 			<div class="post">
 				<textarea class="status-box" placeholder="Say something here..."></textarea>
 				<div class="button-group ">
@@ -275,13 +322,29 @@ body a {
 					<input type="button" class="button" value="Post" />
 				</div>
 			</div>
+			<div class="user_faces">
+				<h3 style="color: #ffffff;">聊天室在线用户：</h3>
+
+				<c:forEach var="user" items="${ USERS }">
+					<img class="users_face" title="${ user.user_name }"
+						src="${ user.user_face }">
+				</c:forEach>
+			</div>
 		</div>
 	</div>
 
 	<script src="dist/js/jquery-2.1.3.min.js"></script>
 	<script>
 		var main = function() {
-			//自己发的头像靠右
+
+			//对face-bubble的操作
+			$("#face-btn").click(function() {
+				if ($(".face-bubble").is(":hidden")) {
+					$(".face-bubble").fadeIn();
+				} else {
+					$(".face-bubble").fadeOut();
+				}
+			});
 
 			//自动刷新  
 			AutoRefresh();
@@ -338,6 +401,12 @@ body a {
 			function AutoRefresh() {
 				setInterval(GetMessageList, 500);
 			}
+			//退出
+			$(".signout-button").click(function() {
+				$.get("./Logout", null, function() {
+					window.location.reload();
+				});
+			});
 		}
 		$(document).ready(main);
 	</script>

@@ -182,19 +182,12 @@
 	<script src="dist/js/jquery-2.1.3.min.js"></script>
 	<script charset="utf-8">
 		$(document).ready(function(){
+			feedBack();
 			$(".submit-btn").click(function(){
 				if($("#Email").val() == "" || $("#Passwd").val()==""){
 					$("#erroMsg").html("内容填写完整才能登录成功哦~");
 					/* 晃动表单 */
-					$(".signin-card").animate({ 
-			    		    width: 300, opacity:0.6},40).animate({
-				    		width: 270 },40).animate({
-				    		width: 300 },40).animate({
-				    		width: 270 },40).animate({
-				    		width: 300 },40).animate({
-				    		width: 270 },40).animate({
-				    		width: 300 },40).animate({
-				    		width: 270, opacity:1 }, 40 );
+					shakeIt();
 				} else {
 					$("#SignInForm").submit();
 				}
@@ -205,6 +198,26 @@
 	            	 $("#SignInForm").submit();
 	             }
 	         });
+			
+			//表单抖动
+			function shakeIt() {
+				/* 晃动表单 */
+				$(".signin-card").animate({ 
+		    		    width: 300, opacity:0.6},40).animate({
+			    		width: 270 },40).animate({
+			    		width: 300 },40).animate({
+			    		width: 270 },40).animate({
+			    		width: 300 },40).animate({
+			    		width: 270 },40).animate({
+			    		width: 300 },40).animate({
+			    		width: 270, opacity:1 }, 40 );
+			}
+			function feedBack() {
+				var search = window.location.search;
+				if(search.indexOf("erroMsg=") > 0){
+					shakeIt();
+				}
+			}
 		});
 				
 	</script>
