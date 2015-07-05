@@ -1,0 +1,252 @@
+@charset "utf-8";
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	width: 100%;
+	height: 100%;
+	min-width: 1000px;
+	overflow: hidden;
+}
+li {
+	list-style: none;
+}
+input,
+select,
+textarea {
+	outline: none;
+	border: none;
+	background: none;
+}
+textarea {
+	resize: none;
+}
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+.clearfix:after,
+.clearfix:before {
+	content: "";
+	display: table;
+}
+.clearfix:after {
+	clear: both;
+}
+.clearfix {
+	zoom: 1;
+}
+.fl {
+	float: left;
+}
+.fr {
+	float: right;
+}
+/*头部*/
+
+.head {
+	height: 60px;
+	background-color: #c0392b;
+	padding: 0 10px;
+}
+.logo img{
+	width: 60px;
+	height: 60px;
+}
+.head_text {
+	height: 100%;
+	font: 22px/60px "微软雅黑";
+	color: #FFF;
+}
+/*用户位置*/
+
+.operation_user {
+	font: 12px/2.5 "微软雅黑";
+	padding: 0 10px;
+	background-color: #d94839;
+}
+.link span {
+	font-family: "宋体";
+	font-weight: 500;
+	padding: 0 10px;
+}
+.link a {
+	color: #000;
+}
+.content {
+	width: 100%;
+	overflow: hidden;
+}
+.main {
+	width: 100%;
+	float: left;
+	margin-bottom: -999999px;
+	padding-bottom: 999999px;
+	overflow: hidden;
+}
+.menu {
+	width: 200px;
+	float: left;
+	margin-left: -100%;
+	height: 100%;
+	min-height: 590px;
+	position: relative;
+	z-index: 2;
+	background-color: #e74c3c;
+	border-right: solid 1px rgb(11, 82, 215);
+	margin-bottom: -999999px;
+	padding-bottom: 999999px;
+	overflow: hidden;
+}
+.cont {
+	position: relative;
+	z-index: 3;
+	zoom: 1;
+}
+.main .cont {
+	margin-left: 201px;
+}
+.title {
+	font: 16px/2.5 "微软雅黑";
+	padding: 0 10px;
+	background-color: #e74c3c;
+}
+/*左侧导航*/
+
+.mList {
+	color: #FFF;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	padding-top: 1em;
+	zoom: 1;
+}
+.mList h3 {
+	font: 18px/2 "";
+	padding-left: 1em;
+	font-weight: 300;
+}
+.mList h3 span {
+	display: inline-block;
+	width: 10px;
+	margin-right: 8px;
+}
+.mList dl {
+	text-indent: 3em;
+	display: none;
+}
+.mList a {
+	color: #FFF;
+	font: 12px/2 "微软雅黑";
+	display: block;
+}
+.icon {
+	padding-left: 18px;
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+.icon_i {
+	background-image: url(../img/icon/i.png);
+}
+.icon_j {
+	background-image: url(../img/icon/j.png);
+}
+.icon_t {
+	background-image: url(../img/icon/t.png);
+}
+.icon_n {
+	background-image: url(../img/icon/n.png);
+}
+.icon_e {
+	background-image: url(../img/icon/e.png);
+}
+/*右侧详细列表*/
+
+.details_operation {
+	margin-bottom: 20px;
+}
+.details {
+	padding: 15px;
+	font-family: "微软雅黑";
+}
+.bui_select {
+	background-color: #E8E8E8;
+	height: 30px;
+	float: left;
+}
+.add {
+	width: 92px;
+	height: 30px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+}
+.select {
+	font-family: "微软雅黑";
+	font-size: 14px;
+	height: 22px;
+	margin: 4px 8px;
+}
+.text {
+	float: left;
+	margin-left: 30px;
+	display: inline;
+}
+.text span {
+	line-height: 30px;
+	font-size: 14px;
+	float: left;
+	margin-right: 10px;
+}
+.search {
+	width: 140px;
+	height: 30px;
+	line-height: 30px\9;
+	background-color: #E8E8E8;
+	padding: 0 8px;
+}
+.ml30 {
+	margin-left: 30px;
+	display: inline;
+}
+/*表格*/
+
+.table {
+	border-collapse: collapse;
+	width: 100%;
+	font-size: 14px;
+	table-layout:fixed;
+}
+.table th {
+	background-color: #E8E8E8;
+}
+.table th,
+.table td {
+	border: solid 1px #ccc;
+	padding: 8px;
+	height: 10px;
+    white-space:nowrap;/* 不换行 */  
+    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */  
+    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/  
+}
+.label,
+.check {
+	vertical-align: middle;
+}
+.check {
+	margin-right: 4px;
+}
+.btn {
+	width: 92px;
+	height: 30px;
+	font-size: 14px;
+	padding: 4px 16px;
+	background-color: #E8E8E8;
+	margin: 0 10px;
+	font-family: "微软雅黑";
+	cursor:pointer;
+}
+.btn:hover {
+	background-color: #ccc;
+}
