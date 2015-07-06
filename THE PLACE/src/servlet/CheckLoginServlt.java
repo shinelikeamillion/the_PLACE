@@ -32,20 +32,17 @@ public class CheckLoginServlt extends HttpServlet {
 		adminInfo = adminInfoBiz.checkAdminLogin(userInfo);
 		UserInfoBiz userInfoBiz = new UserInfoBiz();
 		userInfo = userInfoBiz.checkLogin(userInfo);
-		
 		if (adminInfo != null) {
 			System.out.println("登录成功");
 			request.getSession().setAttribute("ADMININFO", adminInfo);
 			response.sendRedirect("back/AccountManagement.jsp");
-		}  else if ( userInfo != null ) {
-			if ((int)userInfo.getUser_status() == 1) {
-				response.sendRedirect("Signin.jsp?erroMsg=3");
-			} else {
-				userInfo = userInfoBiz.improveUserInfo(userInfo);
-				
-				request.getSession().setAttribute("USERINFO", userInfo);
-				response.sendRedirect("index.jsp");
-			}
+		}  else if (userInfo != null && userInfo.getUser_status() != 1 ) {
+			userInfo = userInfoBiz.improveUserInfo(userInfo);
+			
+			request.getSession().setAttribute("USERINFO", userInfo);
+			response.sendRedirect("index.jsp");
+		} else if((int)userInfo.getUser_status() == 1 ) {
+			response.sendRedirect("Signin.jsp?erroMsg=3");
 		} else {
 			response.sendRedirect("Signin.jsp?erroMsg=1");
 		}

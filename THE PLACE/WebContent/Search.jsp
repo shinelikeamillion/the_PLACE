@@ -284,22 +284,22 @@ body a {
 		</div>
 		<div class="user-bar">
 			<div class="">
-				<a class="mdi-action-polymer " href="index.jsp" title="主页"></a>
+				<a class="mdi-action-polymer " href="index.jsp"></a>
 			</div>
 			<div class="">
-				<a class="mdi-action-receipt" href="Knowlage&Culture.html" title="更多"></a>
+				<a class="mdi-action-receipt" href="Knowlage&Culture.html"></a>
 			</div>
 			<div class="">
-				<a class="mdi-action-explore select" href="Search.jsp?point=" title="搜索"></a>
+				<a class="mdi-action-explore select" href="Search.jsp?point="></a>
 			</div>
 			<div class="">
-				<a class="mdi-communication-textsms" href="Chat.jsp" title="聊天"></a>
+				<a class="mdi-communication-textsms" href="Chat.jsp"></a>
 			</div>
 			<div class="">
-				<a class="mdi-social-notifications-paused" href="" title="消息"></a>
+				<a class="mdi-social-notifications-paused" href="#"></a>
 			</div>
 			<div class="bubble-btn">
-				<a class="mdi-action-account-circle" href="" id="face-btn" title="${ USERINFO.user_name }"></a>
+				<a class="mdi-action-account-circle" id="face-btn"></a>
 			</div>
 		</div>
 	</div>
