@@ -1,4 +1,4 @@
--- 毕业设计之中的一些笔记：
+﻿-- 毕业设计之中的一些笔记：
 
 1. servlet 3.0 中的url 不用再在web.xml 中配置了
 
@@ -8,7 +8,9 @@
 		如果工程中有server 文件，里面的server.xml 也应相应改变。
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
+
 	×.dopost:
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
+
 	×.Filter: 写一个编码过滤器全部过滤掉
