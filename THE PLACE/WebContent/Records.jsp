@@ -21,57 +21,57 @@
 %>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="dist/css/about.css">
-<style>
-.page {
-	width: 100%;
-	height: 100%;
-	height: auto !important;
-	padding-top: 100px;
-	padding-bottom: 50px;
-	background: #F0F0F0 url('images/dian2.png') repeat-x;
-}
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link href="dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="dist/css/about.css">
+	<style>
+		.page {
+			width: 100%;
+			height: 100%;
+			height: auto !important;
+			padding-top: 100px;
+			padding-bottom: 50px;
+			background: #F0F0F0 url('images/dian2.png') repeat-x;
+		}
 
-.logo {
-	width: 50px;
-	float: left;
-}
+		.logo {
+			width: 50px;
+			float: left;
+		}
 
-a {
-	text-decoration: none;
-}
+		a {
+			text-decoration: none;
+		}
 
-.header {
-	top: 0;
-	width: 100%;
-	height: 50px;
-	text-align: right;
-	padding: 10px;
-	background-color: #428bca;
-	position: fixed;
-	z-index: 2;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
+		.header {
+			top: 0;
+			width: 100%;
+			height: 50px;
+			text-align: right;
+			padding: 10px;
+			background-color: #428bca;
+			position: fixed;
+			z-index: 2;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		}
 
-.nav a {
-	font-size: 18px;
-	color: #000000;
-	margin: 10px;
-}
+		.nav a {
+			font-size: 18px;
+			color: #000000;
+			margin: 10px;
+		}
 
-.footer {
-	position: fixed;
-	margin-top: -60px;
-	bottom: 0;
-	background: #fff;
-	width: 100%;
-	height: 60px;
-	/*脚部的高度*/
-}
-</style>
-<title>Records</title>
+		.footer {
+			position: fixed;
+			margin-top: -60px;
+			bottom: 0;
+			background: #fff;
+			width: 100%;
+			height: 60px;
+			/*脚部的高度*/
+		}
+	</style>
+	<title>Records</title>
 </head>
 
 <body>
@@ -79,19 +79,19 @@ a {
 		<div class="header">
 			<a href="Records.jsp"><img class="logo" src="images/logo.png" /></a>
 			<nav class="nav">
-				<a class="nav-item select" id="hot-news" href="">HotNews</a> <a
-					class="nav-item" id="culture" href="Knowlage&Culture.html">Knowledge&amp;Culture</a>
-				<a class="nav-item" id="stars" href="StarsCard.jsp">Stars</a> <a
-					class="nav-item" id="records" href="Records.jsp"
-					style="color: #ffffff;">Records</a> <a class="nav-item" id="blog"
+				<a class="nav-item select" id="hot-news" href="">HotNews</a> <a class="nav-item" id="culture"
+					href="Knowlage&Culture.html">Knowledge&amp;Culture</a>
+				<a class="nav-item" id="stars" href="StarsCard.jsp">Stars</a> <a class="nav-item" id="records"
+					href="Records.jsp" style="color: #ffffff;">Records</a> <a class="nav-item" id="blog"
 					href="index.jsp">Blog</a>
 			</nav>
 		</div>
 		<div class="box">
 			<ul class="event_year">
 				<c:forEach var="years" items="${ YEARS }">
-					<li><label for="${ years }"> <c:out value="${ years }" />
-					</label></li>
+					<li><label for="${ years }">
+							<c:out value="${ years }" />
+						</label></li>
 				</c:forEach>
 			</ul>
 			<ul class="event_list">
@@ -108,7 +108,8 @@ a {
 									<li><span>${fn:substring(date,6,11)}</span>
 										<p>
 											<span>${ recordInfo.record }</span>
-										</p></li>
+										</p>
+									</li>
 								</c:when>
 							</c:choose>
 						</c:forEach>
@@ -122,24 +123,24 @@ a {
 	</div>
 	<script src="dist/js/jquery-2.1.3.min.js" type="text/javascript"></script>
 	<script>
-		$(function() {
+		$(function () {
 			$(".event_year li:first").addClass('current');
 			$('label').click(
-					function() {
-						$('.event_year>li').removeClass('current');
-						$(this).parent('li').addClass('current');
-						var year = $(this).attr('for');
-						$('#' + year).parent().prevAll('div').slideUp(800);
-						$('#' + year).parent().slideDown(800).nextAll('div')
-								.slideDown(800);
-					});
+				function () {
+					$('.event_year>li').removeClass('current');
+					$(this).parent('li').addClass('current');
+					var year = $(this).attr('for');
+					$('#' + year).parent().prevAll('div').slideUp(800);
+					$('#' + year).parent().slideDown(800).nextAll('div')
+						.slideDown(800);
+				});
 		});
 	</script>
 
 	<div class="footer" style="text-align: center; clear: both">
 		<p>篮球史上的大事件...</p>
 		<p>
-			作者：<a href="#">liufei</a>
+			作者：<a href="#">XXX</a>
 		</p>
 	</div>
 </body>

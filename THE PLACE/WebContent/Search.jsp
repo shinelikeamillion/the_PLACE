@@ -30,244 +30,248 @@
 %>
 
 <head>
-<title>explore</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link href="dist/css/material.min.css" rel="stylesheet" type="text/css">
+	<title>explore</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link href="dist/css/material.min.css" rel="stylesheet" type="text/css">
 
-<style type="text/css">
-html, body {
-	width: 100%;
-	height: 100%;
-	margin: 0px;
-	background-color: #36465d;
-	font-family: 'Open Sans', arial;
-}
+	<style type="text/css">
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+			margin: 0px;
+			background-color: #36465d;
+			font-family: 'Open Sans', arial;
+		}
 
-body a {
-	color: #9E9E9E;
-	text-decoration: none;
-}
+		body a {
+			color: #9E9E9E;
+			text-decoration: none;
+		}
 
-.header-bar {
-	top: 0;
-	width: 100%;
-	min-width: 700px;
-	color: #ffffff;
-	height: 64px;
-	box-shadow: rgba(255, 255, 255, 0.2) 0px 2px 2px;
-	background-color: #36465d;
-	position: fixed;
-	z-index: 2;
-}
+		.header-bar {
+			top: 0;
+			width: 100%;
+			min-width: 700px;
+			color: #ffffff;
+			height: 64px;
+			box-shadow: rgba(255, 255, 255, 0.2) 0px 2px 2px;
+			background-color: #36465d;
+			position: fixed;
+			z-index: 2;
+		}
 
-.header-bar div {
-	padding: 20px;
-	display: inline;
-}
+		.header-bar div {
+			padding: 20px;
+			display: inline;
+		}
 
-.logo {
-	width: 56px;
-	margin: 10px;
-	float: left;
-}
+		.logo {
+			width: 56px;
+			margin: 10px;
+			float: left;
+		}
 
-.logo-search-bar div {
-	float: left;
-}
+		.logo-search-bar div {
+			float: left;
+		}
 
-.search input {
-	color: #ffffff;
-	font-size: 18px;
-	font-weight: 500;
-	width: 180px;
-	height: 30px;
-	border: none;
-	border-radius: 50%;
-	background-color: #1D242D;
-	position: absolute;
-}
+		.search input {
+			color: #ffffff;
+			font-size: 18px;
+			font-weight: 500;
+			width: 180px;
+			height: 30px;
+			border: none;
+			border-radius: 50%;
+			background-color: #1D242D;
+			position: absolute;
+		}
 
-.search span {
-	font-size: 30px;
-	text-align: center;
-	color: #9E9E9E;
-	position: absolute;
-}
+		.search span {
+			font-size: 30px;
+			text-align: center;
+			color: #9E9E9E;
+			position: absolute;
+		}
 
-.user-bar {
-	float: right;
-}
+		.user-bar {
+			float: right;
+		}
 
-.user-bar div {
-	font-size: 25px;
-	width: 50px;
-	height: 30px;
-}
+		.user-bar div {
+			font-size: 25px;
+			width: 50px;
+			height: 30px;
+		}
 
-.select {
-	color: #D84315;
-}
+		.select {
+			color: #D84315;
+		}
 
-.container {
-	width: 100%;
-	padding-top: 75px;
-	padding-right: 20px;
-	position: absolute;
-}
+		.container {
+			width: 100%;
+			padding-top: 75px;
+			padding-right: 20px;
+			position: absolute;
+		}
 
-.user-post {
-	width: 22%;
-	position: relative;
-	height: auto;
-	margin-left: 30px;
-	margin-top: 20px;
-	background: rgb(238, 238, 238);
-	border-radius: 3px;
-	float: left;
-}
+		.user-post {
+			width: 22%;
+			position: relative;
+			height: auto;
+			margin-left: 30px;
+			margin-top: 20px;
+			background: rgb(238, 238, 238);
+			border-radius: 3px;
+			float: left;
+		}
 
-.post-pic {
-	width: 100%;
-	border-radius: 3px;
-	min-height: 100px;
-	max-height: 200px;
-}
+		.post-pic {
+			width: 100%;
+			border-radius: 3px;
+			min-height: 100px;
+			max-height: 200px;
+		}
 
-.user-info {
-	height: 60px;
-	position: absolute;
-	color: #fff;
-	margin-top: 0;
-	line-height: 60px;
-}
+		.user-info {
+			height: 60px;
+			position: absolute;
+			color: #fff;
+			margin-top: 0;
+			line-height: 60px;
+		}
 
-.user-info .user-face, .user-name, .follow {
-	float: left;
-}
+		.user-info .user-face,
+		.user-name,
+		.follow {
+			float: left;
+		}
 
-.user-info .user-face {
-	width: 35px;
-	margin: 10px;
-	border-radius: 2px;
-}
+		.user-info .user-face {
+			width: 35px;
+			margin: 10px;
+			border-radius: 2px;
+		}
 
-.user-info .follow {
-	margin-left: 10px;
-	cursor: pointer;
-}
+		.user-info .follow {
+			margin-left: 10px;
+			cursor: pointer;
+		}
 
-.user-info .post-footer {
-	padding: 5px;
-	background-color: #000;
-}
+		.user-info .post-footer {
+			padding: 5px;
+			background-color: #000;
+		}
 
-.post-text, .post-tags {
-	width: 100%;
-	padding: 5px;
-	color: #9D9D9D;
-}
+		.post-text,
+		.post-tags {
+			width: 100%;
+			padding: 5px;
+			color: #9D9D9D;
+		}
 
-.post-title {
-	padding-left: 5px;
-}
+		.post-title {
+			padding-left: 5px;
+		}
 
-.post-text {
-	max-height: 50px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
+		.post-text {
+			max-height: 50px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 
-/* 用户弹窗  */
-.face-bubble {
-	display: none;
-	position: absolute;
-	width: 300px;
-	height: 180px;
-	color: #9E9E9E;
-	background-color: #ffffff;
-	top: 66px;
-	right: 20px;
-	z-index: 9;
-}
+		/* 用户弹窗  */
+		.face-bubble {
+			display: none;
+			position: absolute;
+			width: 300px;
+			height: 180px;
+			color: #9E9E9E;
+			background-color: #ffffff;
+			top: 66px;
+			right: 20px;
+			z-index: 9;
+		}
 
-.face-bubble:before {
-	content: '';
-	position: absolute;
-	border-style: solid;
-	border-width: 0 10px 10px 10px;
-	border-color: transparent transparent #ffffff;
-	display: block;
-	width: 0;
-	z-index: 1;
-	left: 258px;
-	top: -9px;
-}
+		.face-bubble:before {
+			content: '';
+			position: absolute;
+			border-style: solid;
+			border-width: 0 10px 10px 10px;
+			border-color: transparent transparent #ffffff;
+			display: block;
+			width: 0;
+			z-index: 1;
+			left: 258px;
+			top: -9px;
+		}
 
-.user-profile {
-	padding: 20px;
-}
+		.user-profile {
+			padding: 20px;
+		}
 
-.face-icon {
-	width: 90px;
-	height: 90px;
-	float: left;
-}
+		.face-icon {
+			width: 90px;
+			height: 90px;
+			float: left;
+		}
 
-.face-icon img {
-	width: 100%;
-	height: 100%;
-}
+		.face-icon img {
+			width: 100%;
+			height: 100%;
+		}
 
-.change-face {
-	top: 92px;
-	width: 90px;
-	color: #ffffff;
-	font-size: 13px;
-	font-weight: 600;
-	text-align: center;
-	background-color: rgba(78, 144, 254, .7);
-	position: absolute;
-	cursor: pointer;
-}
+		.change-face {
+			top: 92px;
+			width: 90px;
+			color: #ffffff;
+			font-size: 13px;
+			font-weight: 600;
+			text-align: center;
+			background-color: rgba(78, 144, 254, .7);
+			position: absolute;
+			cursor: pointer;
+		}
 
-.name-email {
-	float: left;
-	margin-left: 20px;
-	font-size: 15px;
-}
+		.name-email {
+			float: left;
+			margin-left: 20px;
+			font-size: 15px;
+		}
 
-.signout-button {
-	width: 100%;
-	height: 50px;
-	background-color: #BBDEFB;
-	bottom: 0px;
-	position: absolute;
-	text-align: right;
-}
+		.signout-button {
+			width: 100%;
+			height: 50px;
+			background-color: #BBDEFB;
+			bottom: 0px;
+			position: absolute;
+			text-align: right;
+		}
 
-.signout-button .btn {
-	top: -10px;
-	height: 50px;
-	font-size: 18px;
-}
+		.signout-button .btn {
+			top: -10px;
+			height: 50px;
+			font-size: 18px;
+		}
 
-.profile-link {
-	color: #ffffff;
-	background-color: rgba(78, 144, 254, .7);
-	width: 90px;
-	height: 20px;
-	padding: .5em;
-	margin-top: 17px;
-	margin-left: 35px;
-	position: absolute;
-	cursor: pointer;
-}
-</style>
+		.profile-link {
+			color: #ffffff;
+			background-color: rgba(78, 144, 254, .7);
+			width: 90px;
+			height: 20px;
+			padding: .5em;
+			margin-top: 17px;
+			margin-left: 35px;
+			position: absolute;
+			cursor: pointer;
+		}
+	</style>
 </head>
 
 <body>
 	<!--
-	作者：940788048@qq.com
+	作者：XXX@qq.com
 	时间：2015-05-16
 	描述：页面头
 -->
@@ -277,8 +281,8 @@ body a {
 		<div class="logo-search-bar">
 			<div class="search">
 				<div class="search-form">
-					<input class="point " type="text" placeholder="Search the PLACE"
-						value="${ point }" /> <input type="hidden" />
+					<input class="point " type="text" placeholder="Search the PLACE" value="${ point }" /> <input
+						type="hidden" />
 				</div>
 			</div>
 		</div>
@@ -320,7 +324,7 @@ body a {
 	</div>
 
 	<!--
-	作者：940788048@qq.com
+	作者：XXX@qq.com
 	时间：2015-05-16
 	描述：搜索主页面
 -->
@@ -363,8 +367,8 @@ body a {
 						<div class="post-tags">tags: ${ post.post_tags }</div>
 						<hr>
 						<div class="post-footer">
-							<label class="note" style="margin-left: 5px;">notes</label> <label
-								class="like" style="float: right; margin-right: 5px;">${ post.post_liked }like</label>
+							<label class="note" style="margin-left: 5px;">notes</label> <label class="like"
+								style="float: right; margin-right: 5px;">${ post.post_liked }like</label>
 						</div>
 					</div>
 				</div>
@@ -388,59 +392,59 @@ body a {
 	<script src="dist/js/jquery-2.1.3.min.js"></script>
 	<script>
 		$(document).ready(
-				function() {
-					//对face-bubble的操作
-					$("#face-btn").click(function() {
-						$(".post-bubble").hide();
-						if ($(".face-bubble").is(":hidden")) {
-							$(".face-bubble").fadeIn();
-						} else {
-							$(".face-bubble").fadeOut();
-						}
-					});
-					//退出
-					$(".signout-button").click(function() {
-						$.get("./Logout", null, function() {
-							window.location.reload();
-						});
-					});
-					//对搜索动画的操作
-					$(".search input").focus(function() {
-						$(this).animate({
-							height : "50px"
-						}, 'slow');
-					});
-					$(".search input").blur(function() {
-						$(this).animate({
-							height : "30px"
-						}, 'slow');
-					});
-
-					//回车进行搜索
-					$("body").keydown(function() {
-						var point = $(".point").val();
-						if ($(".point").focus()) {
-							if (event.keyCode == "13") {//keyCode=13是回车键
-								location.href = "Search.jsp?point=" + point;
-							}
-						}
-					});
-
-					//follow
-					$(".follow").click(
-							function() {
-								var friend_id = $(this).attr("id");
-								var status = $(this).html();
-								if (status != "Myself") {
-									var url = "./FollowServlet?friend_id="
-											+ friend_id + "&status=" + status;
-									$.get(url, function(data, status) {
-										window.location.reload();
-									});
-								}
-							});
-
+			function () {
+				//对face-bubble的操作
+				$("#face-btn").click(function () {
+					$(".post-bubble").hide();
+					if ($(".face-bubble").is(":hidden")) {
+						$(".face-bubble").fadeIn();
+					} else {
+						$(".face-bubble").fadeOut();
+					}
 				});
+				//退出
+				$(".signout-button").click(function () {
+					$.get("./Logout", null, function () {
+						window.location.reload();
+					});
+				});
+				//对搜索动画的操作
+				$(".search input").focus(function () {
+					$(this).animate({
+						height: "50px"
+					}, 'slow');
+				});
+				$(".search input").blur(function () {
+					$(this).animate({
+						height: "30px"
+					}, 'slow');
+				});
+
+				//回车进行搜索
+				$("body").keydown(function () {
+					var point = $(".point").val();
+					if ($(".point").focus()) {
+						if (event.keyCode == "13") {//keyCode=13是回车键
+							location.href = "Search.jsp?point=" + point;
+						}
+					}
+				});
+
+				//follow
+				$(".follow").click(
+					function () {
+						var friend_id = $(this).attr("id");
+						var status = $(this).html();
+						if (status != "Myself") {
+							var url = "./FollowServlet?friend_id="
+								+ friend_id + "&status=" + status;
+							$.get(url, function (data, status) {
+								window.location.reload();
+							});
+						}
+					});
+
+			});
 	</script>
 
 </body>

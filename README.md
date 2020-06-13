@@ -4,8 +4,6 @@
 ###所以整个网站开起来就比较乱，非常乱..看官请看：
 图片比较多请您耐心加载哦～
 <br/>
-![the_PLACE](web-gif/01.gif)
-<br/>
 ![the_PLACE](web-gif/1.gif)
 <br/>
 ![the_PLACE](web-gif/2.gif)

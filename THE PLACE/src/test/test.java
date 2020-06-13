@@ -14,7 +14,7 @@ public class test {
 //		System.out.println(new RecordsInfoBiz().findRecordList().get(0).getRecord_date());
 		
 //		UserInfo userInfo = new UserInfo();
-//		userInfo.setUser_email("940788048@qq.com");
+//		userInfo.setUser_email("XXX@qq.com");
 //		userInfo.setUser_password("123456");
 //		System.out.println(new UserInfoBiz().checkLogin(userInfo).getUser_postNum());
 //		System.out.println(new UserInfoBiz().checkLogin(userInfo).getUser_follwingNum());

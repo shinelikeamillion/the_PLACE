@@ -1,154 +1,165 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<link href="dist/css/material.min.css" rel="stylesheet" type="text/css">
-		<style type="text/css">
-			body {
-				width: 100%;
-				height: 100%;
-				background-color: #e74c3c;
-				text-align: center;
-				font-family: 'Open Sans', arial;
-			}
-/*弹窗背景*/
-			.overlay {
-				position: fixed;
-				width: 100%;
-				height: 100%;
-				top: 0;
-				left: 0;
-				z-index: 5;
-				opacity: 0;
-				visibility: hidden;
-				background: rgba(143, 27, 15, 0.8);
-				-webkit-transition: all 0.3s;
-				-moz-transition: all 0.3s;
-				transition: all 0.3s;
-			}
-/*弹窗*/
-			.post-dialog {
-				width: 40%;
-				margin: 0 auto;
-				box-shadow: #000000;
-				color: #a1a1a1;
-				text-align: left;
-			}
-			.post-dialog img {
-				height: 54px;
-				width: 54px;
-				float: left;
-				border-radius: 4px;
-			}
-			.textForm {
-				width: 70%;
-				background: #ffffff;
-				margin-left: 30px;
-				float: left;
-				padding: 10px;
-				border-radius: 4px;
-				box-shadow: 5px 5px 15px #888888;
-			}
-			.textForm input, textarea{
-				width: 100%;
-				border: none;
-				padding: 5px;
-				margin-top: 2px;
-				border-radius: 2px;
-			}
-			.textForm textarea{
-				color: #a1a1a1; 
-				font-size: 1.4em; 
-				font-weight: 300;
-			}
-			.textForm a{
-				position: absolute;
-			}
-			.textForm .close-btn, .submit-btn {
-				width: 8%;
-				
-			}
-			.back-btn {
-				opacity: 0;
-				cursor: pointer;
-			}
-		</style>
-	</head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link href="dist/css/material.min.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+		body {
+			width: 100%;
+			height: 100%;
+			background-color: #e74c3c;
+			text-align: center;
+			font-family: 'Open Sans', arial;
+		}
 
-	<body>
-		<div class="overlay"></div>
-		
-<!--
-	作者：940788048@qq.com
+		/*弹窗背景*/
+		.overlay {
+			position: fixed;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			z-index: 5;
+			opacity: 0;
+			visibility: hidden;
+			background: rgba(143, 27, 15, 0.8);
+			-webkit-transition: all 0.3s;
+			-moz-transition: all 0.3s;
+			transition: all 0.3s;
+		}
+
+		/*弹窗*/
+		.post-dialog {
+			width: 40%;
+			margin: 0 auto;
+			box-shadow: #000000;
+			color: #a1a1a1;
+			text-align: left;
+		}
+
+		.post-dialog img {
+			height: 54px;
+			width: 54px;
+			float: left;
+			border-radius: 4px;
+		}
+
+		.textForm {
+			width: 70%;
+			background: #ffffff;
+			margin-left: 30px;
+			float: left;
+			padding: 10px;
+			border-radius: 4px;
+			box-shadow: 5px 5px 15px #888888;
+		}
+
+		.textForm input,
+		textarea {
+			width: 100%;
+			border: none;
+			padding: 5px;
+			margin-top: 2px;
+			border-radius: 2px;
+		}
+
+		.textForm textarea {
+			color: #a1a1a1;
+			font-size: 1.4em;
+			font-weight: 300;
+		}
+
+		.textForm a {
+			position: absolute;
+		}
+
+		.textForm .close-btn,
+		.submit-btn {
+			width: 8%;
+
+		}
+
+		.back-btn {
+			opacity: 0;
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="overlay"></div>
+
+	<!--
+	作者：XXX@qq.com
 	时间：2015-05-16
 	描述：发文本
 -->
-		<div class="post-dialog postText" >
-			<img class="user-face" src="userfaces/default.png"/>
-			<form id="textForm" class="textForm">
-				<label style="padding: 5px;" >userName</label>
-				<input style="font-size: 2em;" placeholder="Title:" />
-				<textarea rows="3" placeholder="Your text here" ></textarea>
-				<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
-				<div class="close-btn" style="float: left;">
-					<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
-					<input type="reset" class="back-btn" value=""/>
-				</div>
-				<div class="submit-btn" style="float: right;">
-					<a class="mdi-content-send" style="font-size: 1.6em; color: #0066FF;"></a>
-					<input type="submit" class="back-btn" value="" />
-				</div>
-			</form>
-		</div>
-		
-<!--
-	作者：940788048@qq.com
+	<div class="post-dialog postText">
+		<img class="user-face" src="userfaces/default.png" />
+		<form id="textForm" class="textForm">
+			<label style="padding: 5px;">userName</label>
+			<input style="font-size: 2em;" placeholder="Title:" />
+			<textarea rows="3" placeholder="Your text here"></textarea>
+			<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
+			<div class="close-btn" style="float: left;">
+				<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
+				<input type="reset" class="back-btn" value="" />
+			</div>
+			<div class="submit-btn" style="float: right;">
+				<a class="mdi-content-send" style="font-size: 1.6em; color: #0066FF;"></a>
+				<input type="submit" class="back-btn" value="" />
+			</div>
+		</form>
+	</div>
+
+	<!--
+	作者：XXX@qq.com
 	时间：2015-05-16
 	描述：发送图片
 -->
-		<div class="post-dialog postPic" >
-			<img class="user-face" src="userfaces/default.png"/>
-			<form id="picForm" class="textForm">
-				<label style="padding: 5px;" >userName</label>
-				<input style="font-size: 2em;" placeholder="Title:" />
-				<input type="file" value="your pics"/>
-				<textarea rows="3" placeholder="Your text here" ></textarea>
-				<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
-				<div class="close-btn" style="float: left;">
-					<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
-					<input type="reset" class="back-btn" value=""/>
-				</div>
-				<div class="submit-btn" style="float: right;">
-					<a class="mdi-content-send" style="font-size: 1.6em; color: #0066FF;"></a>
-					<input type="submit" class="back-btn" value="" />
-				</div>
-			</form>
-		</div>
+	<div class="post-dialog postPic">
+		<img class="user-face" src="userfaces/default.png" />
+		<form id="picForm" class="textForm">
+			<label style="padding: 5px;">userName</label>
+			<input style="font-size: 2em;" placeholder="Title:" />
+			<input type="file" value="your pics" />
+			<textarea rows="3" placeholder="Your text here"></textarea>
+			<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
+			<div class="close-btn" style="float: left;">
+				<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
+				<input type="reset" class="back-btn" value="" />
+			</div>
+			<div class="submit-btn" style="float: right;">
+				<a class="mdi-content-send" style="font-size: 1.6em; color: #0066FF;"></a>
+				<input type="submit" class="back-btn" value="" />
+			</div>
+		</form>
+	</div>
 
-<!--
-	作者：940788048@qq.com
+	<!--
+	作者：XXX@qq.com
 	时间：2015-05-16
 	描述：
 -->
-		<div class="post-dialog postVideo">
-			<img class="user-face" src="userfaces/default.png"/>
-			<form id="videoForm" class="textForm">
-				<label style="padding: 5px;" >userName</label>
-				<input style="font-size: 2em;" placeholder="Title:" />
-				<input placeholder="videoWebPath:" />
-				<textarea rows="3" placeholder="Your text here" ></textarea>
-				<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
-				<div class="close-btn" style="float: left;">
-					<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
-					<input type="reset" class="back-btn" value=""/>
-				</div>
-				<div class="submit-btn" style="float: right;">
-					<a class="mdi-content-send" style="font-size: 1.6em; color: #0066FF;"></a>
-					<input type="submit" class="back-btn" value="" />
-				</div>
-			</form>
-		</div>
+	<div class="post-dialog postVideo">
+		<img class="user-face" src="userfaces/default.png" />
+		<form id="videoForm" class="textForm">
+			<label style="padding: 5px;">userName</label>
+			<input style="font-size: 2em;" placeholder="Title:" />
+			<input placeholder="videoWebPath:" />
+			<textarea rows="3" placeholder="Your text here"></textarea>
+			<input style="font-size: 1em;" placeholder="tags : #tag1 #tag2" />
+			<div class="close-btn" style="float: left;">
+				<a class="mdi-content-clear" style="font-size: 1.6em; color: #e74c3c;"></a>
+				<input type="reset" class="back-btn" value="" />
+			</div>
+			<div class="submit-btn" style="float: right;">
+				<a class="mdi-content-send" style="font-size: 1.6em; color: #0066FF;"></a>
+				<input type="submit" class="back-btn" value="" />
+			</div>
+		</form>
+	</div>
 
 
 
@@ -161,6 +172,6 @@
 
 
 
-	</body>
+</body>
 
 </html>
